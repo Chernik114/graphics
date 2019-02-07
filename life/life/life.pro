@@ -29,13 +29,17 @@ SOURCES += \
         mainwindow.cpp \
     drawwidget.cpp \
     pixdrawer.cpp \
-    regpolygon.cpp
+    regpolygon.cpp \
+    hexagons.cpp \
+    tableview.cpp
 
 HEADERS += \
         mainwindow.h \
     drawwidget.h \
     pixdrawer.h \
-    regpolygon.h
+    regpolygon.h \
+    hexagons.h \
+    tableview.h
 
 FORMS += \
         mainwindow.ui

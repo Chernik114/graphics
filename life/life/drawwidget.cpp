@@ -14,7 +14,6 @@ void DrawWidget::setSize(const QSize &s)
 void DrawWidget::paintEvent(QPaintEvent *)
 {
     PixDrawer drw(this);
-    drw.clear();
     int w = width() / 4;
     int h = height();
 
@@ -44,6 +43,8 @@ void DrawWidget::paintEvent(QPaintEvent *)
                 .setAmountSides(i + 3)
                 .setCenter(w + 10 + i * 22, 20)
                 .draw();
+
+        drw.drawText("O", w + 10 + i * 22, 20, 7, 0xFF000000);
         drw.fillSpace(w + 10 + i * 22, 20, 0xFFFFFF00);
     }
 }

@@ -6,7 +6,9 @@ PixDrawer::PixDrawer(QWidget* widget):
     p(widget),
     im(w, h, QImage::Format_ARGB32),
     bits(reinterpret_cast<ulong*>(im.bits()))
-{}
+{
+    clear();
+}
 
 void PixDrawer::drawPaint(int x, int y, ulong color)
 {
@@ -95,6 +97,16 @@ void PixDrawer::fillSpace(int x, int y, ulong color)
             r = -1;
         }
     }
+}
+
+void PixDrawer::drawText(const QString& text, int x, int y, int s, ulong color)
+{
+    QPainter p;
+    p.begin(&im);
+    p.setPen(color);
+    p.setFont(QFont("Times", s, QFont::Bold));
+    p.drawText(x - text.size() * s, y - s, text.size() * 2 * s, 2 * s, Qt::AlignCenter | Qt::AlignHCenter, text);
+    p.end();
 }
 
 void PixDrawer::clear()

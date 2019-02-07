@@ -60,6 +60,7 @@ RegPolygon &RegPolygon::setRotation(double a)
 RegPolygon &RegPolygon::setEps(double eps)
 {
     this->eps = eps;
+    return *this;
 }
 
 void RegPolygon::draw()
