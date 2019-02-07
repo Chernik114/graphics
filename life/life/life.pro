@@ -31,7 +31,8 @@ SOURCES += \
     pixdrawer.cpp \
     regpolygon.cpp \
     hexagons.cpp \
-    tableview.cpp
+    tableview.cpp \
+    animator.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -39,7 +40,8 @@ HEADERS += \
     pixdrawer.h \
     regpolygon.h \
     hexagons.h \
-    tableview.h
+    tableview.h \
+    animator.h
 
 FORMS += \
         mainwindow.ui
