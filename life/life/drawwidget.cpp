@@ -14,7 +14,8 @@ void DrawWidget::setSize(const QSize &s)
 void DrawWidget::paintEvent(QPaintEvent *)
 {
     PixDrawer drw(this);
-    int w = width();
+    drw.clear();
+    int w = width() / 2;
     int h = height();
 
     for(int i = 0; i < w; i++){
@@ -30,5 +31,5 @@ void DrawWidget::paintEvent(QPaintEvent *)
         drw.drawLine(i, h - 1, 0, 0, 0xFF0000FF);
     }
 
-    drw.fillSpace(w - 1, h - 1, 0xFFFF0000);
+    drw.fillSpace(w - 15, h - 1, 0xFFFF0000);
 }

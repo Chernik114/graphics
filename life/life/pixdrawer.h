@@ -10,11 +10,12 @@
 class PixDrawer
 {
 public:
-    PixDrawer(QWidget* w);
+    PixDrawer(QWidget* widget);
 
     void drawPaint(int x, int y, ulong color);
     void drawLine(int x1, int y1, int x2, int y2, ulong color);
     void fillSpace(int x, int y, ulong color);
+    void clear();
 
     virtual ~PixDrawer();
 

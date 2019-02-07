@@ -28,12 +28,14 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     drawwidget.cpp \
-    pixdrawer.cpp
+    pixdrawer.cpp \
+    regpolygon.cpp
 
 HEADERS += \
         mainwindow.h \
     drawwidget.h \
-    pixdrawer.h
+    pixdrawer.h \
+    regpolygon.h
 
 FORMS += \
         mainwindow.ui

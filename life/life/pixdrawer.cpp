@@ -94,6 +94,11 @@ void PixDrawer::fillSpace(int x, int y, ulong color)
     }
 }
 
+void PixDrawer::clear()
+{
+    std::fill(bits, bits + w * h, 0);
+}
+
 PixDrawer::~PixDrawer()
 {
     p.drawImage(0, 0, im);
