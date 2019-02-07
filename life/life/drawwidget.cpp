@@ -26,4 +26,7 @@ void DrawWidget::paintEvent(QPaintEvent *)
     for(int i = 0; i < h; i += 10){
         drw.drawLine(0, 0, w, i, 0xFF0000FF);
     }
+    for(int i = 0; i < w; i += 10){
+        drw.drawLine(i, h - 1, 0, 0, 0xFF0000FF);
+    }
 }
