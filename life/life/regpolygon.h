@@ -21,6 +21,7 @@ public:
     RegPolygon& setInnerRadius(double s);
     RegPolygon& setAmountSides(int k);
     RegPolygon& setRotation(double a);
+    RegPolygon& setEps(double eps);
 
     void draw();
     bool isContains(double x, double y);
@@ -33,9 +34,10 @@ public:
     int getK() const;
     const LineDrawer& getDrawer() const;
     double getA() const;
+    double getEps() const;
 
 private:
-    double x, y, side, outer, inner, a;
+    double x, y, side, outer, inner, a, eps;
     int k;
     LineDrawer drawer;
 };

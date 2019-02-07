@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <QPainter>
+#include <QPaintEvent>
+#include <QDebug>
 
 #include "pixdrawer.h"
 #include "regpolygon.h"
@@ -20,6 +22,7 @@ public slots:
 
 protected:
     void paintEvent(QPaintEvent*);
+    void mousePressEvent(QMouseEvent* e);
 };
 
 #endif // DRAWWIDGET_H
