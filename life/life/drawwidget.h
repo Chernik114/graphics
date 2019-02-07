@@ -4,11 +4,14 @@
 #include <QWidget>
 #include <QPainter>
 
+#include "pixdrawer.h"
+
 class DrawWidget : public QWidget
 {
     Q_OBJECT
 public:
     explicit DrawWidget(QWidget *parent = nullptr);
+    void setSize(const QSize& s);
 
 signals:
 

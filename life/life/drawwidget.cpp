@@ -5,21 +5,23 @@ DrawWidget::DrawWidget(QWidget *parent) : QWidget(parent)
 
 }
 
+void DrawWidget::setSize(const QSize &s)
+{
+    setMaximumSize(s);
+    setMinimumSize(s);
+}
+
 void DrawWidget::paintEvent(QPaintEvent *)
 {
-    QPainter p(this);
-    QImage im(width(), height(), QImage::Format_ARGB32);
-    uchar* bits = im.bits();
+    PixDrawer drw(this);
     int w = width();
     int h = height();
+    QRgb a = qRgba(0,0,0,0);
+
+
     for(int i = 0; i < w; i++){
         for(int j = 0; j < h; j++){
-            for(int k = 0; k < 4; k++){
-                bits[k + i * 4 + j * 4 * w] =
-                        (i * i + j * j < w * w) ? 0xFF : 0x00;
-            }
+            drw.drawPaint(i, j, (i * i + j * j < w * w) ? 0xFF0000FF : 0x00000000);
         }
     }
-    p.drawImage(0, 0, im);
-    p.end();
 }
