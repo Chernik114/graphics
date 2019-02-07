@@ -8,6 +8,7 @@
 
 #include "pixdrawer.h"
 #include "regpolygon.h"
+#include "hexagons.h"
 
 class DrawWidget : public QWidget
 {
@@ -23,6 +24,9 @@ public slots:
 protected:
     void paintEvent(QPaintEvent*);
     void mousePressEvent(QMouseEvent* e);
+
+private:
+    Hexagons hs;
 };
 
 #endif // DRAWWIDGET_H

@@ -17,7 +17,7 @@ void MainWindow::resizeEvent(QResizeEvent *)
 {
     ui->scrollArea->setMinimumSize(ui->centralWidget->size());
     ui->scrollArea->setMaximumSize(ui->centralWidget->size());
-    ui->drawWidget->setSize(QSize(400, 100));
+    ui->drawWidget->setSize(QSize(500, 500));
 }
 
 

@@ -7,12 +7,12 @@ TableView::TableView()
 
 int TableView::getSizeCell()
 {
-    return 15;
+    return 20;
 }
 
 int TableView::getTextSize()
 {
-    return 7;
+    return getSizeCell() * 3 / 5;
 }
 
 ulong TableView::getBorderColor()
@@ -32,20 +32,20 @@ ulong TableView::getTextColor()
 
 int TableView::getCellsX()
 {
-    return 5;
+    return 10;
 }
 
 int TableView::getCellsY()
 {
-    return 5;
+    return 10;
 }
 
 bool TableView::isCellShowed(int x, int y)
 {
-    return true;
+    return !((y % 2) == 1 && x == getCellsX() - 1);
 }
 
 QString TableView::getCellText(int x, int y)
 {
-    return "QQ";
+    return (x % 2) ?  "0.0" : "3";
 }

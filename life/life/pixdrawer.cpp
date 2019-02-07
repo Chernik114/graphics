@@ -105,7 +105,7 @@ void PixDrawer::drawText(const QString& text, int x, int y, int s, ulong color)
     p.begin(&im);
     p.setPen(color);
     p.setFont(QFont("Times", s, QFont::Bold));
-    p.drawText(x - text.size() * s, y - s, text.size() * 2 * s, 2 * s, Qt::AlignCenter | Qt::AlignHCenter, text);
+    p.drawText(x - text.size() * s + 2, y - s, text.size() * 2 * s, 2 * s, Qt::AlignCenter | Qt::AlignHCenter, text);
     p.end();
 }
 
