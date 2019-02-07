@@ -15,6 +15,9 @@ void PixDrawer::drawPaint(int x, int y, ulong color)
 
 void PixDrawer::drawLine(int x1, int y1, int x2, int y2, ulong color)
 {
+    if(x1 == 130 && y1 == 30 && x2 == 120 && y2 == 20){
+        x1 += 0;
+    }
     if(std::abs(y2 - y1) <= std::abs(x2 - x1)){ // horisontal
         if(x1 > x2){ // order for X
             std::swap(x1, x2);
@@ -22,8 +25,8 @@ void PixDrawer::drawLine(int x1, int y1, int x2, int y2, ulong color)
         }
         double k = 1.0 * (y2 - y1) / (x2 - x1); // straight K
         for(int i = 0; i <= x2 - x1; i++){ // for X pixels
-            int v = static_cast<int>(round(k * (x1 + i) + y1)); // nearest Y
-            ii(i, v) = color; // draw
+            int v = static_cast<int>(round(k * i + y1)); // nearest Y
+            ii(i + x1, v) = color; // draw
         }
     } else { // vertical
         if(y1 > y2){ // order for Y
@@ -32,8 +35,8 @@ void PixDrawer::drawLine(int x1, int y1, int x2, int y2, ulong color)
         }
         double k = 1.0 * (x2 - x1) / (y2 - y1); // straight K
         for(int i = 0; i <= y2 - y1; i++){ // for Y pixels
-            int v = static_cast<int>(round(k * (y1 + i) + x1)); // nearest X
-            ii(v, i) = color; // draw
+            int v = static_cast<int>(round(k * i + x1)); // nearest X
+            ii(v, i + y1) = color; // draw
         }
     }
 }

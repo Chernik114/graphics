@@ -5,6 +5,7 @@
 #include <QPainter>
 
 #include "pixdrawer.h"
+#include "regpolygon.h"
 
 class DrawWidget : public QWidget
 {

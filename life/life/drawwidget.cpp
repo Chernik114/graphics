@@ -15,7 +15,7 @@ void DrawWidget::paintEvent(QPaintEvent *)
 {
     PixDrawer drw(this);
     drw.clear();
-    int w = width() / 2;
+    int w = width() / 4;
     int h = height();
 
     for(int i = 0; i < w; i++){
@@ -31,5 +31,19 @@ void DrawWidget::paintEvent(QPaintEvent *)
         drw.drawLine(i, h - 1, 0, 0, 0xFF0000FF);
     }
 
-    drw.fillSpace(w - 15, h - 1, 0xFFFF0000);
+    drw.fillSpace(35, h - 1, 0xFFFF0000);
+
+    RegPolygon pg;
+    pg
+            .setOuterRadius(10)
+            .setLineDrawer([&](double x1, double y1, double x2, double y2){
+                drw.drawLine(x1, y1, x2, y2, 0xFF0000FF);
+            });
+    for(int i = 0; i < 9; i++){
+        pg
+                .setAmountSides(i + 3)
+                .setCenter(w + 10 + i * 22, 20)
+                .draw();
+    }
+
 }
