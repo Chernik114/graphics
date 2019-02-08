@@ -1,8 +1,6 @@
 #ifndef HEXAGONS_H
 #define HEXAGONS_H
 
-#include <QDebug>
-
 #include "pixdrawer.h"
 #include "tableview.h"
 #include "regpolygon.h"
@@ -10,7 +8,7 @@
 class Hexagons
 {
 public:
-    Hexagons();
+    Hexagons(IGameView* view);
 
     void draw(PixDrawer& drw);
 

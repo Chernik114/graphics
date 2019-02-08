@@ -1,6 +1,8 @@
 #include "drawwidget.h"
 
-DrawWidget::DrawWidget(QWidget *parent) : QWidget(parent)
+DrawWidget::DrawWidget(QWidget *parent) :
+    QWidget(parent),
+    hs(nullptr)
 {
 
 }
@@ -11,10 +13,15 @@ void DrawWidget::setSize(const QSize &s)
     setMinimumSize(s);
 }
 
+void DrawWidget::setIView(IGameView *view)
+{
+    hs = std::make_shared<Hexagons>(view);
+}
+
 void DrawWidget::paintEvent(QPaintEvent *)
 {
     PixDrawer drw(this);
-    hs.draw(drw);
+    hs->draw(drw);
 }
 
 void DrawWidget::mousePressEvent(QMouseEvent *e)

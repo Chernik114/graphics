@@ -5,6 +5,7 @@
 #include <QPainter>
 #include <QPaintEvent>
 #include <QDebug>
+#include <memory>
 
 #include "pixdrawer.h"
 #include "regpolygon.h"
@@ -16,6 +17,7 @@ class DrawWidget : public QWidget
 public:
     explicit DrawWidget(QWidget *parent = nullptr);
     void setSize(const QSize& s);
+    void setIView(IGameView* view);
 
 signals:
 
@@ -26,7 +28,7 @@ protected:
     void mousePressEvent(QMouseEvent* e);
 
 private:
-    Hexagons hs;
+    std::shared_ptr<Hexagons> hs;
 };
 
 #endif // DRAWWIDGET_H

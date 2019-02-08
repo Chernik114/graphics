@@ -1,9 +1,8 @@
 #include "hexagons.h"
 
-Hexagons::Hexagons()
-{
-
-}
+Hexagons::Hexagons(IGameView* view):
+    view(view)
+{}
 
 void Hexagons::draw(PixDrawer &drw)
 {

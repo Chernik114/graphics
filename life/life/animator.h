@@ -2,12 +2,13 @@
 #define ANIMATOR_H
 
 #include <QTimer>
+#include <memory>
 
-template <typename T>
+template <class T>
 class Value { // Usable interface
 public:
-    virtual T g(); // Get value
-    virtual void s(const T&); // Set value
+    virtual T g() = 0; // Get value
+    virtual void s(const T&) = 0; // Set value
 };
 
 class Animator : public QTimer
@@ -16,25 +17,42 @@ class Animator : public QTimer
 private:
     class TimValue { // Interface for vector<>
     public:
-        virtual bool onTimer(); // Time event, true if end enimation
-        virtual ~TimValue();
+        virtual bool onTimer() = 0; // Time event, true if end enimation
+        virtual ~TimValue(){} // TODO: need realization))
 
         static void addValue(TimValue& v, Animator& animator); // Start animation
     };
     friend class TimValue; // For addValue
 
 public:
-    template <typename T>
+    template <class T>
     class Value : public ::Value<T>, private TimValue { // Animated value
     public:
-        T g();
-        void s(const T& v);
+        Value(Animator& animator, T v):
+            animator(animator),
+            cur(v), aim(v),
+            msLeft(0), msFull(animator.msAnim),
+            isAnimNow(false)
+        {}
+
+        T g() {
+            return cur;
+        }
+
+        void s(const T& v){
+            aim = v;
+            msLeft = msFull;
+            if(!isAnimNow){
+                isAnimNow = true;
+                addValue(*this, animator);
+            }
+        }
 
     private:
-        friend class Animator; // For constructor
-
-        Value(Animator& animator, const T& v);
-        bool onTimer();
+        bool onTimer(){
+            // TODO: done that
+            return true;
+        }
 
         Animator& animator;
         T cur, aim;
@@ -43,7 +61,11 @@ public:
     };
 
     Animator();
-    template <typename T> Value<T> createValue(const T& v);
+
+    template <class T> Value<T> createValue(const T& v){
+        return Value<T>(*this, v);
+    }
+
     void setMsAnimation(int ms);
     int getMsAnimation();
 

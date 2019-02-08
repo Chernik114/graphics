@@ -15,6 +15,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::resizeEvent(QResizeEvent *)
 {
+    IGameView* v = new SimpleGameView();
+    ui->drawWidget->setIView(v);
     ui->scrollArea->setMinimumSize(ui->centralWidget->size());
     ui->scrollArea->setMaximumSize(ui->centralWidget->size());
     ui->drawWidget->setSize(QSize(500, 500));

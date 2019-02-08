@@ -1,13 +1,18 @@
 #include "tableview.h"
 
-TableView::TableView()
-{
-
-}
+TableView::TableView(IGameView* view):
+    animator(),
+    sizeCell    (new Animator::Value<int>(animator, 20)),
+    borderColor (new Animator::Value<ulong>(animator, 0xFF000000)),
+    textColor   (new Animator::Value<ulong>(animator, 0xFF0000FF)),
+    deadColor   (new Animator::Value<ulong>(animator, 0xFFFFFFFF)),
+    aliveColor  (new Animator::Value<ulong>(animator, 0xFF00FF00)),
+    view(view)
+{}
 
 int TableView::getSizeCell()
 {
-    return 20;
+    return sizeCell->g();
 }
 
 int TableView::getTextSize()
@@ -17,35 +22,56 @@ int TableView::getTextSize()
 
 ulong TableView::getBorderColor()
 {
-    return 0xFF000000;
+    return borderColor->g();
 }
 
 ulong TableView::getCellColor(int x, int y)
 {
-    return 0xFF00FF00;
+    switch(view->getCellState(x, y)){
+    case IGameView::DEAD:
+    case IGameView::NO_SHOWED:
+        return deadColor->g();
+    case IGameView::ALIVE:
+        return aliveColor->g();
+    }
 }
 
 ulong TableView::getTextColor()
 {
-    return 0xFF0000FF;
+    return textColor->g();
 }
 
 int TableView::getCellsX()
 {
-    return 10;
+    return view->getCellsX();
 }
 
 int TableView::getCellsY()
 {
-    return 10;
+    return view->getCellsY();
 }
 
 bool TableView::isCellShowed(int x, int y)
 {
-    return !((y % 2) == 1 && x == getCellsX() - 1);
+    return view->getCellState(x, y) != IGameView::NO_SHOWED;
 }
 
 QString TableView::getCellText(int x, int y)
 {
-    return (x % 2) ?  "0.0" : "3";
+    return view->getCellText(x, y);
+}
+
+void TableView::setSizeCell(int s)
+{
+    sizeCell->s(s);
+}
+
+void TableView::setBorderColor(ulong c)
+{
+    borderColor->s(c);
+}
+
+void TableView::setTextColor(ulong c)
+{
+    textColor->s(c);
 }

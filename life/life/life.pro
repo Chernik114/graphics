@@ -32,7 +32,8 @@ SOURCES += \
     regpolygon.cpp \
     hexagons.cpp \
     tableview.cpp \
-    animator.cpp
+    animator.cpp \
+    igameview.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -41,7 +42,8 @@ HEADERS += \
     regpolygon.h \
     hexagons.h \
     tableview.h \
-    animator.h
+    animator.h \
+    igameview.h
 
 FORMS += \
         mainwindow.ui
