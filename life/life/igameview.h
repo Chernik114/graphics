@@ -60,11 +60,8 @@ public:
             ss = !ss;
             repaint();
         }
-        qDebug() << x << y;
-        qDebug() << (state & LEFT) << (state & RIGHT) << (state & DOWN);
     }
     void repaint(){
-        qDebug() << "REDRAW";
         f();
     }
 };

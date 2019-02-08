@@ -29,6 +29,7 @@ public:
     void setSizeCell(int s);
     void setBorderColor(ulong c);
     void setTextColor(ulong c);
+    void setAnimInterval(int t);
 
     void mouseClick(int x, int y, IGameView::Mouse state);
 

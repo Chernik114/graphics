@@ -57,6 +57,24 @@ void Hexagons::mouseClick(int px, int py, IGameView::Mouse state)
     view.mouseClick(-1, -1, state);
 }
 
+int Hexagons::getSizeX()
+{
+    RegPolygon p;
+    p
+            .setAmountSides(6)
+            .setOuterRadius(view.getSizeCell());
+    return p.getInner() * (1 + 2 * view.getCellsX()) + 5;
+}
+
+int Hexagons::getSizeY()
+{
+    RegPolygon p;
+    p
+            .setAmountSides(6)
+            .setOuterRadius(view.getSizeCell());
+    return (p.getOuter() + p.getSide() / 2) * view.getCellsY() + p.getOuter() - p.getSide() / 2 + 5;
+}
+
 Hexagons::LineDrawer::LineDrawer(PixDrawer &drw, ulong color):
     drw(drw), color(color)
 {}

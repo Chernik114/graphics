@@ -26,3 +26,14 @@ void MainWindow::showEvent(QShowEvent *)
 }
 
 
+void MainWindow::on_actionSize_up_triggered()
+{
+    size += 5;
+    ui->drawWidget->getTableView().setSizeCell(size);
+}
+
+void MainWindow::on_actionSize_down_triggered()
+{
+    size -= 5;
+    ui->drawWidget->getTableView().setSizeCell(size);
+}

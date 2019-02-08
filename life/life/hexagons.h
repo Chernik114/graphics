@@ -12,6 +12,8 @@ public:
 
     void draw(PixDrawer& drw);
     void mouseClick(int x, int y, IGameView::Mouse state);
+    int getSizeX();
+    int getSizeY();
 
     TableView view;
 

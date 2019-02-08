@@ -13,10 +13,10 @@ Animator::Animator():
 {}
 
 Animator::Animator(std::function<void ()> onTimer):
-    msAnim(50),
+    msAnim(100),
     onTimer(onTimer)
 {
-
+    setInterval(20);
 }
 
 Animator::ARGBValue *Animator::createARGBValue(const ulong &v)

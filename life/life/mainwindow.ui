@@ -66,6 +66,8 @@
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="actionSize_up"/>
+    <addaction name="actionSize_down"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -78,6 +80,22 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionSize_up">
+   <property name="text">
+    <string>Size up</string>
+   </property>
+   <property name="shortcut">
+    <string>Up</string>
+   </property>
+  </action>
+  <action name="actionSize_down">
+   <property name="text">
+    <string>Size down</string>
+   </property>
+   <property name="shortcut">
+    <string>Down</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>

@@ -21,8 +21,23 @@ void DrawWidget::setIView(IGameView &view)
     };
 }
 
+TableView &DrawWidget::getTableView()
+{
+    return hs->view;
+}
+
 void DrawWidget::paintEvent(QPaintEvent *)
 {
+    QSize s = size();
+    int sx = s.width(), sy = s.height();
+    int rx = hs->getSizeX(), ry = hs->getSizeY();
+    while(sx < rx) sx += 20;
+    while(sx > rx + 20) sx -= 20;
+    while(sy < ry) sy += 20;
+    while(sy > ry + 20) sy -= 20;
+    if(s.width() != sx || s.height() != sy){
+        setSize(QSize(sx, sy));
+    }
     PixDrawer drw(this);
     hs->draw(drw);
 }

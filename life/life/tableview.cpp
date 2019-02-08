@@ -5,7 +5,7 @@ TableView::TableView(IGameView& view):
     sizeCell(*animator.createValue(20)),
     borderColor (*animator.createARGBValue(0xFF000000)),
     textColor   (*animator.createARGBValue(0xFF0000FF)),
-    deadColor   (*animator.createARGBValue(0xFFFFFFFF)),
+    deadColor   (*animator.createARGBValue(0xFFFF0000)),
     aliveColor  (*animator.createARGBValue(0xFF00FF00)),
     cells(view.getCellsX() * view.getCellsY()),
     view(view)
@@ -77,6 +77,11 @@ void TableView::setBorderColor(ulong c)
 void TableView::setTextColor(ulong c)
 {
     textColor.s(c);
+}
+
+void TableView::setAnimInterval(int t)
+{
+    animator.setInterval(t);
 }
 
 void TableView::mouseClick(int x, int y, IGameView::Mouse state)

@@ -18,9 +18,14 @@ public:
 
 private slots:
 
+    void on_actionSize_up_triggered();
+
+    void on_actionSize_down_triggered();
+
 private:
     Ui::MainWindow *ui;
     SimpleGameView view;
+    int size = 20;
 
     class View : public SimpleGameView {
 

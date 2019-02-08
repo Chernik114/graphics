@@ -52,20 +52,29 @@ public:
         }
     protected:
         bool onTimer() { // On timer event
-            qDebug() << "TIMER";
-            cur = aim;
-            isAnimNow = false;
-            return true;
+            if(cur < aim){
+                cur += (aim - cur) * msAnim / msLeft;
+            } else {
+                cur -= (cur - aim) * msAnim / msLeft;
+            }
+            msLeft -= msAnim;
+            if(cur == aim || msLeft <= 0){
+                msLeft = 0;
+                cur = aim;
+                isAnimNow = false;
+                return true;
+            }
+            return false;
         }
         Animator& animator; // Loopback
         bool isAnimNow; // We animated now
-        int msLeft, msFull;
+        int msLeft, msFull, msAnim;
         T cur, aim;
     private:
         Value(Animator& animator, T v):
             animator(animator),
             isAnimNow(false),
-            msLeft(0), msFull(animator.msAnim),
+            msLeft(0), msFull(animator.msAnim), msAnim(animator.interval()),
             cur(v), aim(v)
         {}
         friend class Animator; // For constructor

@@ -18,6 +18,7 @@ public:
     explicit DrawWidget(QWidget *parent = nullptr);
     void setSize(const QSize& s);
     void setIView(IGameView& view);
+    TableView& getTableView();
 
 signals:
 
