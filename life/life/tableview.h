@@ -11,7 +11,7 @@
 class TableView
 {
 public:
-    TableView(IGameView* view);
+    TableView(IGameView& view);
 
     int getSizeCell();
     int getTextSize();
@@ -30,13 +30,19 @@ public:
     void setBorderColor(ulong c);
     void setTextColor(ulong c);
 
-private:
-    Animator animator;
-    std::shared_ptr<Value<int>> sizeCell;
-    std::shared_ptr<Value<ulong>> borderColor, textColor;
-    std::shared_ptr<Value<ulong>> deadColor, aliveColor;
+    void mouseClick(int x, int y, IGameView::Mouse state);
 
-    IGameView* view;
+private:
+    ulong MathCellColor(int x, int y);
+    Animator animator;
+
+    Value<int> &sizeCell;
+    Value<ulong> &borderColor, &textColor;
+    Value<ulong> &deadColor, &aliveColor;
+
+    std::vector<Value<ulong>*> cells;
+
+    IGameView& view;
 };
 
 #endif // TABLEVIEW_H

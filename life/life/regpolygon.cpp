@@ -65,7 +65,7 @@ RegPolygon &RegPolygon::setEps(double eps)
 
 void RegPolygon::draw()
 {
-    double x1, y1, x2, y2;
+    double x1 = 0, y1 = 0, x2, y2;
     for(int i = 0; i <= k; i++){
         y2 = PI * 2 * i / k + a;
         x2 = cos(y2) * outer + x;
@@ -81,7 +81,7 @@ void RegPolygon::draw()
 bool RegPolygon::isContains(double x, double y)
 {
     bool res = true;
-    double x1, y1, x2, y2, cx, cy;
+    double x1 = 0, y1 = 0, x2, y2, cx, cy;
     for(int i = 0; i <= k; i++){
         y2 = PI * 2 * i / k + a;
         x2 = cos(y2) * outer;

@@ -17,7 +17,7 @@ class DrawWidget : public QWidget
 public:
     explicit DrawWidget(QWidget *parent = nullptr);
     void setSize(const QSize& s);
-    void setIView(IGameView* view);
+    void setIView(IGameView& view);
 
 signals:
 
@@ -28,6 +28,7 @@ protected:
     void mousePressEvent(QMouseEvent* e);
 
 private:
+    IGameView::Mouse parseEvent(QMouseEvent* e);
     std::shared_ptr<Hexagons> hs;
 };
 

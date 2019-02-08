@@ -1,6 +1,6 @@
 #include "hexagons.h"
 
-Hexagons::Hexagons(IGameView* view):
+Hexagons::Hexagons(IGameView& view):
     view(view)
 {}
 
@@ -22,10 +22,39 @@ void Hexagons::draw(PixDrawer &drw)
                         p.getInner() * ((y % 2) + 2 * x + 1),
                         (p.getOuter() + p.getSide() / 2) * y + p.getOuter())
                     .draw();
-            drw.fillSpace(p.getX(), p.getY(), view.getCellColor(x, y));
-            drw.drawText(view.getCellText(x, y), p.getX(), p.getY(), view.getTextSize(), view.getTextColor());
+            drw.fillSpace(
+                        p.getX(), p.getY(),
+                        view.getCellColor(x, y)
+            );
+            drw.drawText(
+                        view.getCellText(x, y),
+                        p.getX(), p.getY(),
+                        view.getTextSize(),
+                        view.getTextColor()
+            );
         }
     }
+}
+
+void Hexagons::mouseClick(int px, int py, IGameView::Mouse state)
+{
+    RegPolygon p;
+    p
+            .setRotation(p.PI / 6)
+            .setAmountSides(6)
+            .setOuterRadius(view.getSizeCell());
+    for(int x = 0; x < view.getCellsX(); x++){
+        for(int y = 0; y < view.getCellsY(); y++){
+            p.setCenter(
+                    p.getInner() * ((y % 2) + 2 * x + 1),
+                    (p.getOuter() + p.getSide() / 2) * y + p.getOuter());
+            if(p.isContains(px, py)){
+                view.mouseClick(x, y, state);
+                return;
+            }
+        }
+    }
+    view.mouseClick(-1, -1, state);
 }
 
 Hexagons::LineDrawer::LineDrawer(PixDrawer &drw, ulong color):

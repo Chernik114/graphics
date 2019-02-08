@@ -20,9 +20,15 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    SimpleGameView view;
+
+    class View : public SimpleGameView {
+
+    };
 
 protected:
     void resizeEvent(QResizeEvent*);
+    void showEvent(QShowEvent*);
 };
 
 #endif // MAINWINDOW_H

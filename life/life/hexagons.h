@@ -8,13 +8,14 @@
 class Hexagons
 {
 public:
-    Hexagons(IGameView* view);
+    Hexagons(IGameView& view);
 
     void draw(PixDrawer& drw);
+    void mouseClick(int x, int y, IGameView::Mouse state);
 
-private:
     TableView view;
 
+private:
     class LineDrawer {
     public:
         LineDrawer(PixDrawer &drw, ulong color);
