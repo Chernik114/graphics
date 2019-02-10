@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "igameview.h"
+#include "gameview.h"
 
 namespace Ui {
 class MainWindow;
@@ -22,14 +22,42 @@ private slots:
 
     void on_actionSize_down_triggered();
 
+    void on_actionNext_triggered();
+
+    void on_actionShow_triggered();
+
+    void on_actionHide_triggered();
+
 private:
     Ui::MainWindow *ui;
-    SimpleGameView view;
     int size = 20;
 
-    class View : public SimpleGameView {
+    class MyView : public GameView {
+    private:
+        QWidget *w = nullptr;
 
+    public:
+        void setWidget(QWidget &w){
+            this->w = &w;
+        }
+        void mouseClick(int x, int y, Mouse state){
+            if(getCellState(x, y) == ALIVE || getCellState(x, y) == NEW_ALIVE){
+                setCellState(x, y, DEAD);
+            } else {
+                setCellState(x, y, ALIVE);
+            }
+            repaint();
+        }
+        void repaint(){
+            if(w == nullptr){
+                qDebug() << "NULL VIEW";
+                return;
+            }
+            w->repaint();
+        }
     };
+
+    MyView view;
 
 protected:
     void resizeEvent(QResizeEvent*);

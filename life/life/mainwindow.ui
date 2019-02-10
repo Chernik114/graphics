@@ -66,8 +66,17 @@
     <property name="title">
      <string>File</string>
     </property>
+    <widget class="QMenu" name="menuText">
+     <property name="title">
+      <string>Text</string>
+     </property>
+     <addaction name="actionShow"/>
+     <addaction name="actionHide"/>
+    </widget>
     <addaction name="actionSize_up"/>
     <addaction name="actionSize_down"/>
+    <addaction name="actionNext"/>
+    <addaction name="menuText"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -76,7 +85,7 @@
     <enum>TopToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
-    <bool>false</bool>
+    <bool>true</bool>
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -94,6 +103,24 @@
    </property>
    <property name="shortcut">
     <string>Down</string>
+   </property>
+  </action>
+  <action name="actionNext">
+   <property name="text">
+    <string>Next</string>
+   </property>
+   <property name="shortcut">
+    <string>Return</string>
+   </property>
+  </action>
+  <action name="actionShow">
+   <property name="text">
+    <string>Show</string>
+   </property>
+  </action>
+  <action name="actionHide">
+   <property name="text">
+    <string>Hide</string>
    </property>
   </action>
  </widget>

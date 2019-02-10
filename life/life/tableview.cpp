@@ -3,10 +3,13 @@
 TableView::TableView(IGameView& view):
     animator([&view](){view.repaint();}),
     sizeCell(*animator.createValue(20)),
+    realTextColor(0xFFFF00FF),
     borderColor (*animator.createARGBValue(0xFF000000)),
-    textColor   (*animator.createARGBValue(0xFF0000FF)),
-    deadColor   (*animator.createARGBValue(0xFFFF0000)),
-    aliveColor  (*animator.createARGBValue(0xFF00FF00)),
+    textColor   (*animator.createARGBValue(0x00000000)),
+    deadColor   (*animator.createARGBValue(0xFFFFFFFF)),
+    aliveColor  (*animator.createARGBValue(0xFFFF0000)),
+    nDeadColor  (*animator.createARGBValue(0xFFDDDDDD)),
+    nAliveColor (*animator.createARGBValue(0xFFDD0000)),
     cells(view.getCellsX() * view.getCellsY()),
     view(view)
 {
@@ -76,12 +79,42 @@ void TableView::setBorderColor(ulong c)
 
 void TableView::setTextColor(ulong c)
 {
+    realTextColor = c;
     textColor.s(c);
+}
+
+void TableView::setDeadColor(ulong c)
+{
+    deadColor.s(c);
+}
+
+void TableView::setNDeadColor(ulong c)
+{
+    nDeadColor.s(c);
+}
+
+void TableView::setAliveColor(ulong c)
+{
+    aliveColor.s(c);
+}
+
+void TableView::setNAliveColor(ulong c)
+{
+    nAliveColor.s(c);
 }
 
 void TableView::setAnimInterval(int t)
 {
     animator.setInterval(t);
+}
+
+void TableView::setIsShowText(bool state)
+{
+    if(state){
+        setTextColor(realTextColor);
+    } else {
+        setTextColor(0);
+    }
 }
 
 void TableView::mouseClick(int x, int y, IGameView::Mouse state)
@@ -95,7 +128,11 @@ ulong TableView::MathCellColor(int x, int y)
     case IGameView::DEAD:
     case IGameView::NO_SHOWED:
         return deadColor.g();
+    case IGameView::NEW_DEAD:
+        return nDeadColor.g();
     case IGameView::ALIVE:
         return aliveColor.g();
+    case IGameView::NEW_ALIVE:
+        return nAliveColor.g();
     }
 }

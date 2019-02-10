@@ -10,7 +10,9 @@ public:
     enum State {
         NO_SHOWED,
         ALIVE,
-        DEAD
+        DEAD,
+        NEW_ALIVE,
+        NEW_DEAD
     };
 
     typedef uchar Mouse;

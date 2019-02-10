@@ -16,9 +16,6 @@ void DrawWidget::setSize(const QSize &s)
 void DrawWidget::setIView(IGameView &view)
 {
     hs = std::make_shared<Hexagons>(view);
-    ((SimpleGameView&)view).f = [=](){
-        this->repaint();
-    };
 }
 
 TableView &DrawWidget::getTableView()

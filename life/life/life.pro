@@ -33,7 +33,8 @@ SOURCES += \
     hexagons.cpp \
     tableview.cpp \
     animator.cpp \
-    igameview.cpp
+    igameview.cpp \
+    gameview.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -43,7 +44,8 @@ HEADERS += \
     hexagons.h \
     tableview.h \
     animator.h \
-    igameview.h
+    igameview.h \
+    gameview.h
 
 FORMS += \
         mainwindow.ui
