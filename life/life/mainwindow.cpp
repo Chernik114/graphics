@@ -3,15 +3,19 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    timer(*(new QTimer()))
 {
     ui->setupUi(this);
     view.setWidget(*ui->drawWidget);
+    timer.setInterval(500);
+    QObject::connect(&timer, SIGNAL(timeout()), this, SLOT(on_actionStep_triggered()));
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete &timer;
 }
 
 void MainWindow::resizeEvent(QResizeEvent *)
@@ -112,4 +116,13 @@ void MainWindow::on_actionStep_triggered()
 void MainWindow::on_actionToroidal_triggered(bool checked)
 {
     view.setGameState(checked ? GameView::TOROIDAL : GameView::NORMAL);
+}
+
+void MainWindow::on_actionRun_triggered(bool checked)
+{
+    if(checked){
+        timer.start();
+    } else {
+        timer.stop();
+    }
 }

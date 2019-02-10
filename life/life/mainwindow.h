@@ -41,9 +41,11 @@ private slots:
 
     void on_actionToroidal_triggered(bool checked);
 
+    void on_actionRun_triggered(bool checked);
+
 private:
     Ui::MainWindow *ui;
-    int size = 20;
+    QTimer &timer;
 
     class MyView : public GameView {
     private:

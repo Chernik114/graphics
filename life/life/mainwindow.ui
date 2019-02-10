@@ -66,12 +66,6 @@
     <property name="title">
      <string>File</string>
     </property>
-    <widget class="QMenu" name="menuText">
-     <property name="title">
-      <string>Text</string>
-     </property>
-    </widget>
-    <addaction name="menuText"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -197,6 +191,9 @@
    </property>
    <property name="text">
     <string>Run</string>
+   </property>
+   <property name="shortcut">
+    <string>Return</string>
    </property>
   </action>
   <action name="actionStep">
