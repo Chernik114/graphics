@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QColorDialog>
 #include "gameview.h"
 
 namespace Ui {
@@ -18,17 +19,27 @@ public:
 
 private slots:
 
-    void on_actionSize_up_triggered();
+    void on_actionColorBorder_triggered();
 
-    void on_actionSize_down_triggered();
+    void on_actionColorText_triggered();
 
-    void on_actionNext_triggered();
+    void on_actionColorCellAlive_triggered();
 
-    void on_actionShow_triggered();
+    void on_actionColorCellNAlive_triggered();
 
-    void on_actionHide_triggered();
+    void on_actionColorCellDead_triggered();
 
-    void on_action_triggered();
+    void on_actionColorCellNDead_triggered();
+
+    void on_actionCellSizeUp_triggered();
+
+    void on_actionCellSizeDown_triggered();
+
+    void on_actionShowHideImpact_triggered(bool checked);
+
+    void on_actionStep_triggered();
+
+    void on_actionToroidal_triggered(bool checked);
 
 private:
     Ui::MainWindow *ui;
@@ -64,6 +75,7 @@ private:
 protected:
     void resizeEvent(QResizeEvent*);
     void showEvent(QShowEvent*);
+
 };
 
 #endif // MAINWINDOW_H

@@ -15,7 +15,7 @@ TableView::TableView(IGameView& view):
 {
     for(auto i = 0ull; i < cells.size(); i++){
         cells[i] = animator.createARGBValue(
-                    MathCellColor(i % view.getCellsX(), i / view.getCellsX())
+                    mathCellColor(i % view.getCellsX(), i / view.getCellsX())
         );
     }
 }
@@ -38,7 +38,7 @@ ulong TableView::getBorderColor()
 ulong TableView::getCellColor(int x, int y)
 {
     auto& cell = *cells[x + y * view.getCellsX()];
-    cell.s(MathCellColor(x, y));
+    cell.s(mathCellColor(x, y));
     return cell.g();
 }
 
@@ -80,7 +80,29 @@ void TableView::setBorderColor(ulong c)
 void TableView::setTextColor(ulong c)
 {
     realTextColor = c;
-    textColor.s(c);
+    if(isShowText){
+        textColor.s(c);
+    }
+}
+
+ulong TableView::getDeadColor()
+{
+    return deadColor.g();
+}
+
+ulong TableView::getNDeadColor()
+{
+    return nDeadColor.g();
+}
+
+ulong TableView::getAliveColor()
+{
+    return aliveColor.g();
+}
+
+ulong TableView::getNAliveColor()
+{
+    return nAliveColor.g();
 }
 
 void TableView::setDeadColor(ulong c)
@@ -110,6 +132,7 @@ void TableView::setAnimInterval(int t)
 
 void TableView::setIsShowText(bool state)
 {
+    isShowText = state;
     if(state){
         textColor.s(realTextColor);
     } else {
@@ -117,12 +140,17 @@ void TableView::setIsShowText(bool state)
     }
 }
 
+ulong TableView::getRealTextColor()
+{
+    return realTextColor;
+}
+
 void TableView::mouseClick(int x, int y, IGameView::Mouse state)
 {
     view.mouseClick(x, y, state);
 }
 
-ulong TableView::MathCellColor(int x, int y)
+ulong TableView::mathCellColor(int x, int y)
 {
     switch(view.getCellState(x, y)){
     case IGameView::DEAD:

@@ -70,16 +70,54 @@
      <property name="title">
       <string>Text</string>
      </property>
-     <addaction name="actionShow"/>
-     <addaction name="actionHide"/>
     </widget>
-    <addaction name="actionSize_up"/>
-    <addaction name="actionSize_down"/>
-    <addaction name="actionNext"/>
     <addaction name="menuText"/>
-    <addaction name="action"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <widget class="QMenu" name="menuColors">
+     <property name="title">
+      <string>Colors</string>
+     </property>
+     <widget class="QMenu" name="menuCells_colors">
+      <property name="title">
+       <string>Cells colors</string>
+      </property>
+      <addaction name="actionColorCellAlive"/>
+      <addaction name="actionColorCellNAlive"/>
+      <addaction name="actionColorCellDead"/>
+      <addaction name="actionColorCellNDead"/>
+     </widget>
+     <addaction name="actionColorBorder"/>
+     <addaction name="actionColorText"/>
+     <addaction name="menuCells_colors"/>
+    </widget>
+    <widget class="QMenu" name="menuCell_size">
+     <property name="title">
+      <string>Cell size</string>
+     </property>
+     <addaction name="actionCellSizeUp"/>
+     <addaction name="actionCellSizeDown"/>
+    </widget>
+    <addaction name="menuColors"/>
+    <addaction name="menuCell_size"/>
+    <addaction name="actionShowHideImpact"/>
+   </widget>
+   <widget class="QMenu" name="menuGame">
+    <property name="title">
+     <string>Game</string>
+    </property>
+    <addaction name="actionRun"/>
+    <addaction name="actionStep"/>
+    <addaction name="separator"/>
+    <addaction name="actionToroidal"/>
+    <addaction name="actionSettings"/>
    </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuView"/>
+   <addaction name="menuGame"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -90,43 +128,96 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionSize_up">
+  <action name="actionColorBorder">
    <property name="text">
-    <string>Size up</string>
+    <string>Border color</string>
    </property>
-   <property name="shortcut">
+  </action>
+  <action name="actionColorText">
+   <property name="text">
+    <string>Text color</string>
+   </property>
+  </action>
+  <action name="actionColorCellAlive">
+   <property name="text">
+    <string>Alive</string>
+   </property>
+  </action>
+  <action name="actionColorCellNAlive">
+   <property name="text">
+    <string>Newly alive</string>
+   </property>
+  </action>
+  <action name="actionColorCellDead">
+   <property name="text">
+    <string>Dead</string>
+   </property>
+  </action>
+  <action name="actionColorCellNDead">
+   <property name="text">
+    <string>Newly dead</string>
+   </property>
+  </action>
+  <action name="actionCellSizeUp">
+   <property name="text">
     <string>Up</string>
    </property>
-  </action>
-  <action name="actionSize_down">
-   <property name="text">
-    <string>Size down</string>
+   <property name="toolTip">
+    <string>Cell size up to 5 pixels</string>
    </property>
    <property name="shortcut">
+    <string>Ctrl++</string>
+   </property>
+  </action>
+  <action name="actionCellSizeDown">
+   <property name="text">
     <string>Down</string>
    </property>
-  </action>
-  <action name="actionNext">
-   <property name="text">
-    <string>Next</string>
+   <property name="toolTip">
+    <string>Cell size down to 5 pixels</string>
    </property>
    <property name="shortcut">
-    <string>Return</string>
+    <string>Ctrl+-</string>
    </property>
   </action>
-  <action name="actionShow">
+  <action name="actionShowHideImpact">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
-    <string>Show</string>
+    <string>Impact</string>
+   </property>
+   <property name="toolTip">
+    <string>Show/hide impact text</string>
    </property>
   </action>
-  <action name="actionHide">
+  <action name="actionRun">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
-    <string>Hide</string>
+    <string>Run</string>
    </property>
   </action>
-  <action name="action">
+  <action name="actionStep">
    <property name="text">
-    <string>ИИ</string>
+    <string>Step</string>
+   </property>
+   <property name="shortcut">
+    <string>Space</string>
+   </property>
+  </action>
+  <action name="actionToroidal">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Toroidal</string>
+   </property>
+  </action>
+  <action name="actionSettings">
+   <property name="text">
+    <string>Settings...</string>
    </property>
   </action>
  </widget>

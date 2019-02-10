@@ -26,35 +26,90 @@ void MainWindow::showEvent(QShowEvent *)
     ui->drawWidget->setSize(QSize(500, 500));
 }
 
-
-void MainWindow::on_actionSize_up_triggered()
+void MainWindow::on_actionColorBorder_triggered()
 {
-    size += 5;
-    ui->drawWidget->getTableView().setSizeCell(size);
+    TableView &vv = ui->drawWidget->getTableView();
+    QColor t = QColorDialog::getColor(vv.getBorderColor(), this, "Choose");
+    if(!t.isValid()){
+        return;
+    }
+    vv.setBorderColor(t.rgb());
 }
 
-void MainWindow::on_actionSize_down_triggered()
+void MainWindow::on_actionColorText_triggered()
 {
-    size -= 5;
-    ui->drawWidget->getTableView().setSizeCell(size);
+    TableView &vv = ui->drawWidget->getTableView();
+    QColor t = QColorDialog::getColor(vv.getTextColor(), this, "Choose");
+    if(!t.isValid()){
+        return;
+    }
+    vv.setTextColor(t.rgb());
 }
 
-void MainWindow::on_actionNext_triggered()
+void MainWindow::on_actionColorCellAlive_triggered()
+{
+    TableView &vv = ui->drawWidget->getTableView();
+    QColor t = QColorDialog::getColor(vv.getAliveColor(), this, "Choose");
+    if(!t.isValid()){
+        return;
+    }
+    vv.setAliveColor(t.rgb());
+}
+
+void MainWindow::on_actionColorCellNAlive_triggered()
+{
+    TableView &vv = ui->drawWidget->getTableView();
+    QColor t = QColorDialog::getColor(vv.getNAliveColor(), this, "Choose");
+    if(!t.isValid()){
+        return;
+    }
+    vv.setNAliveColor(t.rgb());
+}
+
+void MainWindow::on_actionColorCellDead_triggered()
+{
+    TableView &vv = ui->drawWidget->getTableView();
+    QColor t = QColorDialog::getColor(vv.getDeadColor(), this, "Choose");
+    if(!t.isValid()){
+        return;
+    }
+    vv.setDeadColor(t.rgb());
+}
+
+void MainWindow::on_actionColorCellNDead_triggered()
+{
+    TableView &vv = ui->drawWidget->getTableView();
+    QColor t = QColorDialog::getColor(vv.getNDeadColor(), this, "Choose");
+    if(!t.isValid()){
+        return;
+    }
+    vv.setNDeadColor(t.rgb());
+}
+
+void MainWindow::on_actionCellSizeUp_triggered()
+{
+    TableView &vv = ui->drawWidget->getTableView();
+    vv.setSizeCell(vv.getSizeCell() + 5);
+}
+
+void MainWindow::on_actionCellSizeDown_triggered()
+{
+    TableView &vv = ui->drawWidget->getTableView();
+    vv.setSizeCell(vv.getSizeCell() - 5);
+}
+
+void MainWindow::on_actionShowHideImpact_triggered(bool checked)
+{
+    TableView &vv = ui->drawWidget->getTableView();
+    vv.setIsShowText(checked);
+}
+
+void MainWindow::on_actionStep_triggered()
 {
     view.stepForward();
 }
 
-void MainWindow::on_actionShow_triggered()
+void MainWindow::on_actionToroidal_triggered(bool checked)
 {
-    ui->drawWidget->getTableView().setIsShowText(true);
-}
-
-void MainWindow::on_actionHide_triggered()
-{
-    ui->drawWidget->getTableView().setIsShowText(false);
-}
-
-void MainWindow::on_action_triggered()
-{
-    ui->drawWidget->getTableView().setDeadColor(0xFF00CCCC);
+    view.setGameState(checked ? GameView::TOROIDAL : GameView::NORMAL);
 }

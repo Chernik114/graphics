@@ -26,12 +26,14 @@ void Hexagons::draw(PixDrawer &drw)
                         p.getX(), p.getY(),
                         view.getCellColor(x, y)
             );
-            drw.drawText(
-                        view.getCellText(x, y),
-                        p.getX(), p.getY(),
-                        view.getTextSize(),
-                        view.getTextColor()
-            );
+            if(view.getSizeCell() >= 7 && view.getTextColor() != 0){
+                drw.drawText(
+                            view.getCellText(x, y),
+                            p.getX(), p.getY(),
+                            view.getTextSize(),
+                            view.getTextColor()
+                );
+            }
         }
     }
 }

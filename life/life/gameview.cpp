@@ -1,7 +1,7 @@
 #include "gameview.h"
 
 GameView::GameView():
-    gameState(TOROIDAL),
+    gameState(NORMAL),
     xSize(15), ySize(15),
     fstImpact(1.0), sndImpact(0.3),
     liveBegin(2.0), liveEnd(3.3),
@@ -155,6 +155,7 @@ void GameView::setGameState(GameView::GameState state)
         }
     }
     gameState = state;
+    repaint();
 }
 
 double GameView::roundImpact(int x, int y)

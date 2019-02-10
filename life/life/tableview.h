@@ -29,6 +29,11 @@ public:
     void setSizeCell(int s);
     void setBorderColor(ulong c);
     void setTextColor(ulong c);
+
+    ulong getDeadColor();
+    ulong getNDeadColor();
+    ulong getAliveColor();
+    ulong getNAliveColor();
     void setDeadColor(ulong c);
     void setNDeadColor(ulong c);
     void setAliveColor(ulong c);
@@ -36,11 +41,12 @@ public:
 
     void setAnimInterval(int t);
     void setIsShowText(bool state);
+    ulong getRealTextColor();
 
     void mouseClick(int x, int y, IGameView::Mouse state);
 
 private:
-    ulong MathCellColor(int x, int y);
+    ulong mathCellColor(int x, int y);
     Animator animator;
 
     ulong realTextColor;
@@ -48,6 +54,8 @@ private:
     Value<ulong> &borderColor, &textColor;
     Value<ulong> &deadColor, &aliveColor;
     Value<ulong> &nDeadColor, &nAliveColor;
+
+    bool isShowText;
 
     std::vector<Value<ulong>*> cells;
 
