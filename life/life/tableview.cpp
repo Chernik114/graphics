@@ -111,9 +111,9 @@ void TableView::setAnimInterval(int t)
 void TableView::setIsShowText(bool state)
 {
     if(state){
-        setTextColor(realTextColor);
+        textColor.s(realTextColor);
     } else {
-        setTextColor(0);
+        textColor.s(0);
     }
 }
 
