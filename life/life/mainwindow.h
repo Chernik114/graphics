@@ -28,6 +28,8 @@ private slots:
 
     void on_actionHide_triggered();
 
+    void on_action_triggered();
+
 private:
     Ui::MainWindow *ui;
     int size = 20;

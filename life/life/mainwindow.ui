@@ -77,6 +77,7 @@
     <addaction name="actionSize_down"/>
     <addaction name="actionNext"/>
     <addaction name="menuText"/>
+    <addaction name="action"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -121,6 +122,11 @@
   <action name="actionHide">
    <property name="text">
     <string>Hide</string>
+   </property>
+  </action>
+  <action name="action">
+   <property name="text">
+    <string>ИИ</string>
    </property>
   </action>
  </widget>

@@ -53,3 +53,8 @@ void MainWindow::on_actionHide_triggered()
 {
     ui->drawWidget->getTableView().setIsShowText(false);
 }
+
+void MainWindow::on_action_triggered()
+{
+    ui->drawWidget->getTableView().setDeadColor(0xFF00CCCC);
+}
