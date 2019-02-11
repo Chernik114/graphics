@@ -3,8 +3,7 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow),
-    timer(*(new QTimer()))
+    ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     view.setWidget(*ui->drawWidget);
@@ -15,7 +14,6 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete &timer;
 }
 
 void MainWindow::resizeEvent(QResizeEvent *)
@@ -120,9 +118,29 @@ void MainWindow::on_actionToroidal_triggered(bool checked)
 
 void MainWindow::on_actionRun_triggered(bool checked)
 {
+    ui->actionClear->setEnabled(!checked);
+    ui->actionFillState->setEnabled(!checked);
+    ui->actionStep->setEnabled(!checked);
     if(checked){
         timer.start();
+        view.setFillState(MouseGameView::NONE);
     } else {
         timer.stop();
+        on_actionFillState_triggered(ui->actionFillState->isChecked());
     }
+}
+
+void MainWindow::on_actionSettings_triggered()
+{
+
+}
+
+void MainWindow::on_actionFillState_triggered(bool checked)
+{
+    view.setFillState(checked ? MouseGameView::XOR : MouseGameView::REPLACE);
+}
+
+void MainWindow::on_actionClear_triggered()
+{
+    view.clear();
 }

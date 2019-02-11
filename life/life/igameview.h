@@ -35,37 +35,4 @@ public:
     virtual ~IGameView(){}
 };
 
-class SimpleGameView : public IGameView {
-public:
-    bool ss = false;
-    std::function<void()> f = [](){};
-    int getCellsX(){
-        return 10;
-    }
-    int getCellsY(){
-        return 10;
-    }
-    QString getCellText(int x, int y){
-        return (x % 2) ?  "0.0" : "3";
-    }
-    State getCellState(int x, int y){
-        if((y % 2) == 1 && x == getCellsX() - 1){
-            return NO_SHOWED;
-        }
-        if(x == 0 && y == 0){
-            return ss ? ALIVE : DEAD;
-        }
-        return ALIVE;
-    }
-    void mouseClick(int x, int y, Mouse state){
-        if(x == 0 && y == 0){
-            ss = !ss;
-            repaint();
-        }
-    }
-    void repaint(){
-        f();
-    }
-};
-
 #endif // IGAMEVIEW_H

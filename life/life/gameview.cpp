@@ -2,7 +2,7 @@
 
 GameView::GameView():
     gameState(NORMAL),
-    xSize(15), ySize(15),
+    xSize(15), ySize(14),
     fstImpact(1.0), sndImpact(0.3),
     liveBegin(2.0), liveEnd(3.3),
     birthBegin(2.3), birthEnd(2.9),

@@ -34,7 +34,8 @@ SOURCES += \
     tableview.cpp \
     animator.cpp \
     igameview.cpp \
-    gameview.cpp
+    gameview.cpp \
+    mousegameview.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -45,7 +46,8 @@ HEADERS += \
     tableview.h \
     animator.h \
     igameview.h \
-    gameview.h
+    gameview.h \
+    mousegameview.h
 
 FORMS += \
         mainwindow.ui

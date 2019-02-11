@@ -3,7 +3,10 @@
 
 #include <QMainWindow>
 #include <QColorDialog>
-#include "gameview.h"
+#include <QTime>
+#include <QTimer>
+
+#include "mousegameview.h"
 
 namespace Ui {
 class MainWindow;
@@ -43,25 +46,23 @@ private slots:
 
     void on_actionRun_triggered(bool checked);
 
+    void on_actionSettings_triggered();
+
+    void on_actionFillState_triggered(bool checked);
+
+    void on_actionClear_triggered();
+
 private:
     Ui::MainWindow *ui;
-    QTimer &timer;
+    QTimer timer;
 
-    class MyView : public GameView {
+    class MyView : public MouseGameView {
     private:
         QWidget *w = nullptr;
 
     public:
         void setWidget(QWidget &w){
             this->w = &w;
-        }
-        void mouseClick(int x, int y, Mouse state){
-            if(getCellState(x, y) == ALIVE || getCellState(x, y) == NEW_ALIVE){
-                setCellState(x, y, DEAD);
-            } else {
-                setCellState(x, y, ALIVE);
-            }
-            repaint();
         }
         void repaint(){
             if(w == nullptr){

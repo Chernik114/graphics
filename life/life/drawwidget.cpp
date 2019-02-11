@@ -44,6 +44,16 @@ void DrawWidget::mousePressEvent(QMouseEvent *e)
     hs->mouseClick(e->x(), e->y(), parseEvent(e) | IGameView::DOWN);
 }
 
+void DrawWidget::mouseMoveEvent(QMouseEvent *e)
+{
+    hs->mouseClick(e->x(), e->y(), parseEvent(e) | IGameView::MOVE);
+}
+
+void DrawWidget::mouseReleaseEvent(QMouseEvent *e)
+{
+    hs->mouseClick(e->x(), e->y(), parseEvent(e) | IGameView::UP);
+}
+
 IGameView::Mouse DrawWidget::parseEvent(QMouseEvent *e)
 {
     IGameView::Mouse state = IGameView::NONE;

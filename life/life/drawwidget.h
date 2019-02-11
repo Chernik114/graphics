@@ -27,6 +27,8 @@ public slots:
 protected:
     void paintEvent(QPaintEvent*);
     void mousePressEvent(QMouseEvent* e);
+    void mouseMoveEvent(QMouseEvent* e);
+    void mouseReleaseEvent(QMouseEvent* e);
 
 private:
     IGameView::Mouse parseEvent(QMouseEvent* e);
