@@ -5,8 +5,12 @@
 #include <QColorDialog>
 #include <QTime>
 #include <QTimer>
+#include <QFileDialog>
+#include <QMessageBox>
 
 #include "mousegameview.h"
+#include "serializedgameview.h"
+#include "filewatcher.h"
 
 namespace Ui {
 class MainWindow;
@@ -52,9 +56,19 @@ private slots:
 
     void on_actionClear_triggered();
 
+    void on_actionFileNew_triggered();
+
+    void on_actionFileOpen_triggered();
+
+    void on_actionFileSave_triggered();
+
+    void on_actionFileSaveAs_triggered();
+
 private:
     Ui::MainWindow *ui;
     QTimer timer;
+    QString fileName;
+    bool isSaved;
 
     class MyView : public MouseGameView {
     private:
@@ -74,6 +88,27 @@ private:
     };
 
     MyView view;
+
+    class Wr : public FileWatcher {
+    public:
+        int a = 0;
+        bool load(QDataStream& s){
+            s >> a;
+            qDebug() << a;
+            return true;
+        }
+        bool save(QDataStream& s){
+            s << a;
+            qDebug() << "saved";
+            return true;
+        }
+        bool create(){
+            a = 0;
+            return true;
+        }
+    };
+
+    Wr fileWatcher;
 
 protected:
     void resizeEvent(QResizeEvent*);

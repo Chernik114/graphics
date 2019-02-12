@@ -6,6 +6,7 @@
 #include <QPaintEvent>
 #include <QDebug>
 #include <memory>
+#include <QTime>
 
 #include "pixdrawer.h"
 #include "regpolygon.h"

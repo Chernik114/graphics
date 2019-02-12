@@ -35,7 +35,9 @@ SOURCES += \
     animator.cpp \
     igameview.cpp \
     gameview.cpp \
-    mousegameview.cpp
+    mousegameview.cpp \
+    serializedgameview.cpp \
+    filewatcher.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -47,7 +49,9 @@ HEADERS += \
     animator.h \
     igameview.h \
     gameview.h \
-    mousegameview.h
+    mousegameview.h \
+    serializedgameview.h \
+    filewatcher.h
 
 FORMS += \
         mainwindow.ui
@@ -56,3 +60,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resource.qrc

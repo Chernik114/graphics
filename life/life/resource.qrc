@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/pic">
+        <file>pics/Tilda_Icons_6bs_cosmetics.svg</file>
+        <file>pics/Tilda_Icons_8yo_asana.svg</file>
+        <file>pics/Tilda_Icons_10cw_window.svg</file>
+        <file>pics/Tilda_Icons_13ph_tune.svg</file>
+        <file>pics/Tilda_Icons_14ht_soap.svg</file>
+        <file>pics/Tilda_Icons_17ked_medicine.svg</file>
+        <file>pics/Tilda_Icons_17ked_opendoors.svg</file>
+        <file>pics/Tilda_Icons_30_system_folder.svg</file>
+        <file>pics/Tilda_Icons_30_system_save.svg</file>
+        <file>pics/Tilda_Icons_40_IT_animation.svg</file>
+        <file>pics/Tilda_Icons_40_IT_branding.svg</file>
+        <file>pics/Tilda_Icons_40_IT_abtest.svg</file>
+        <file>pics/Tilda_Icons_12ft_card.svg</file>
+    </qresource>
+</RCC>

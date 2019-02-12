@@ -3,12 +3,15 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    fileName(""),
+    isSaved(true)
 {
     ui->setupUi(this);
     view.setWidget(*ui->drawWidget);
     timer.setInterval(500);
     QObject::connect(&timer, SIGNAL(timeout()), this, SLOT(on_actionStep_triggered()));
+    fileWatcher.setWidget(*this);
 }
 
 MainWindow::~MainWindow()
@@ -143,4 +146,28 @@ void MainWindow::on_actionFillState_triggered(bool checked)
 void MainWindow::on_actionClear_triggered()
 {
     view.clear();
+}
+
+void MainWindow::on_actionFileNew_triggered()
+{
+    qDebug() << "NEW";
+    fileWatcher.newFile();
+}
+
+void MainWindow::on_actionFileOpen_triggered()
+{
+    qDebug() << "OPEN";
+    fileWatcher.openFile();
+}
+
+void MainWindow::on_actionFileSave_triggered()
+{
+    qDebug() << "SAVE";
+    fileWatcher.saveFile();
+}
+
+void MainWindow::on_actionFileSaveAs_triggered()
+{
+    qDebug() << "SAVE AS";
+    fileWatcher.saveNewFile();
 }

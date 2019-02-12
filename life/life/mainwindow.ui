@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>:/pic/pics/Tilda_Icons_12ft_card.svg</normaloff>:/pic/pics/Tilda_Icons_12ft_card.svg</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QScrollArea" name="scrollArea">
     <property name="geometry">
@@ -66,6 +70,12 @@
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="actionFileNew"/>
+    <addaction name="actionFileOpen"/>
+    <addaction name="actionFileSave"/>
+    <addaction name="actionFileSaveAs"/>
+    <addaction name="separator"/>
+    <addaction name="actionClose"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -116,48 +126,86 @@
     <addaction name="actionFillState"/>
     <addaction name="actionClear"/>
    </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
    <addaction name="menuGame"/>
    <addaction name="menuEdit"/>
+   <addaction name="menuHelp"/>
   </widget>
+  <widget class="QStatusBar" name="statusBar"/>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
-    <bool>true</bool>
+    <bool>false</bool>
    </attribute>
+   <addaction name="actionFileNew"/>
+   <addaction name="actionFileOpen"/>
+   <addaction name="actionFileSave"/>
+   <addaction name="separator"/>
+   <addaction name="actionFillState"/>
+   <addaction name="actionClear"/>
+   <addaction name="actionShowHideImpact"/>
+   <addaction name="actionSettings"/>
+   <addaction name="separator"/>
+   <addaction name="actionStep"/>
+   <addaction name="actionRun"/>
+   <addaction name="separator"/>
+   <addaction name="actionAbout"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <action name="actionColorBorder">
    <property name="text">
     <string>Border color</string>
+   </property>
+   <property name="statusTip">
+    <string>Change the color of cells' border</string>
    </property>
   </action>
   <action name="actionColorText">
    <property name="text">
     <string>Text color</string>
    </property>
+   <property name="statusTip">
+    <string>Change the color of impact numbers</string>
+   </property>
   </action>
   <action name="actionColorCellAlive">
    <property name="text">
     <string>Alive</string>
+   </property>
+   <property name="statusTip">
+    <string>Change the color of alive cells</string>
    </property>
   </action>
   <action name="actionColorCellNAlive">
    <property name="text">
     <string>Newly alive</string>
    </property>
+   <property name="statusTip">
+    <string>Change the color of newly alive cells</string>
+   </property>
   </action>
   <action name="actionColorCellDead">
    <property name="text">
     <string>Dead</string>
    </property>
+   <property name="statusTip">
+    <string>Change the color of dead cells</string>
+   </property>
   </action>
   <action name="actionColorCellNDead">
    <property name="text">
     <string>Newly dead</string>
+   </property>
+   <property name="statusTip">
+    <string>Change the color of newly dead cells</string>
    </property>
   </action>
   <action name="actionCellSizeUp">
@@ -166,6 +214,9 @@
    </property>
    <property name="toolTip">
     <string>Cell size up to 5 pixels</string>
+   </property>
+   <property name="statusTip">
+    <string>Change cell's size up to 5 pixels</string>
    </property>
    <property name="shortcut">
     <string>Ctrl++</string>
@@ -178,6 +229,9 @@
    <property name="toolTip">
     <string>Cell size down to 5 pixels</string>
    </property>
+   <property name="statusTip">
+    <string>Change cell's size down to 5 pixels</string>
+   </property>
    <property name="shortcut">
     <string>Ctrl+-</string>
    </property>
@@ -186,10 +240,17 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset theme="/rec" resource="resource.qrc">
+     <normaloff>:/pic/pics/Tilda_Icons_17ked_opendoors.svg</normaloff>:/pic/pics/Tilda_Icons_17ked_opendoors.svg</iconset>
+   </property>
    <property name="text">
     <string>Impact</string>
    </property>
    <property name="toolTip">
+    <string>Show/hide impact text</string>
+   </property>
+   <property name="statusTip">
     <string>Show/hide impact text</string>
    </property>
   </action>
@@ -197,16 +258,30 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/pic/pics/Tilda_Icons_40_IT_animation.svg</normaloff>:/pic/pics/Tilda_Icons_40_IT_animation.svg</iconset>
+   </property>
    <property name="text">
     <string>Run</string>
+   </property>
+   <property name="statusTip">
+    <string>Start/stop auto steps</string>
    </property>
    <property name="shortcut">
     <string>Return</string>
    </property>
   </action>
   <action name="actionStep">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/pic/pics/Tilda_Icons_8yo_asana.svg</normaloff>:/pic/pics/Tilda_Icons_8yo_asana.svg</iconset>
+   </property>
    <property name="text">
     <string>Step</string>
+   </property>
+   <property name="statusTip">
+    <string>Step forward</string>
    </property>
    <property name="shortcut">
     <string>Space</string>
@@ -219,15 +294,29 @@
    <property name="text">
     <string>Toroidal</string>
    </property>
+   <property name="statusTip">
+    <string>Enable/dsable toroidal mode (needs even rows amount)</string>
+   </property>
   </action>
   <action name="actionSettings">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/pic/pics/Tilda_Icons_13ph_tune.svg</normaloff>:/pic/pics/Tilda_Icons_13ph_tune.svg</iconset>
+   </property>
    <property name="text">
     <string>Settings...</string>
+   </property>
+   <property name="statusTip">
+    <string>Game settings, e.g. size of board, interval of autostep, e.t.c.</string>
    </property>
   </action>
   <action name="actionFillState">
    <property name="checkable">
     <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/pic/pics/Tilda_Icons_6bs_cosmetics.svg</normaloff>:/pic/pics/Tilda_Icons_6bs_cosmetics.svg</iconset>
    </property>
    <property name="text">
     <string>Replace/XOR</string>
@@ -235,13 +324,100 @@
    <property name="toolTip">
     <string>Replace on alive/Switch</string>
    </property>
+   <property name="statusTip">
+    <string>Set fill mode (replace lets fill cells by alive state, XOR lets you switch this state)</string>
+   </property>
   </action>
   <action name="actionClear">
+   <property name="icon">
+    <iconset theme="/rec" resource="resource.qrc">
+     <normaloff>:/pic/pics/Tilda_Icons_14ht_soap.svg</normaloff>:/pic/pics/Tilda_Icons_14ht_soap.svg</iconset>
+   </property>
    <property name="text">
     <string>Clear</string>
    </property>
    <property name="toolTip">
     <string>Clear canvas</string>
+   </property>
+   <property name="statusTip">
+    <string>Clead the board</string>
+   </property>
+  </action>
+  <action name="actionFileNew">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/pic/pics/Tilda_Icons_40_IT_branding.svg</normaloff>:/pic/pics/Tilda_Icons_40_IT_branding.svg</iconset>
+   </property>
+   <property name="text">
+    <string>New</string>
+   </property>
+   <property name="statusTip">
+    <string>Cread new field</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionFileOpen">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/pic/pics/Tilda_Icons_30_system_folder.svg</normaloff>:/pic/pics/Tilda_Icons_30_system_folder.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Open</string>
+   </property>
+   <property name="statusTip">
+    <string>Open field</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionFileSave">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/pic/pics/Tilda_Icons_30_system_save.svg</normaloff>:/pic/pics/Tilda_Icons_30_system_save.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Save</string>
+   </property>
+   <property name="statusTip">
+    <string>Save field</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionFileSaveAs">
+   <property name="text">
+    <string>Save as</string>
+   </property>
+   <property name="statusTip">
+    <string>Save field as</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
+   </property>
+  </action>
+  <action name="actionClose">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/pic/pics/Tilda_Icons_10cw_window.svg</normaloff>:/pic/pics/Tilda_Icons_10cw_window.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Close</string>
+   </property>
+   <property name="statusTip">
+    <string>Close the app</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/pic/pics/Tilda_Icons_40_IT_abtest.svg</normaloff>:/pic/pics/Tilda_Icons_40_IT_abtest.svg</iconset>
+   </property>
+   <property name="text">
+    <string>About</string>
    </property>
   </action>
  </widget>
@@ -254,6 +430,8 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
  <connections/>
 </ui>
