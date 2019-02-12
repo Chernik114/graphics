@@ -37,7 +37,8 @@ SOURCES += \
     gameview.cpp \
     mousegameview.cpp \
     serializedgameview.cpp \
-    filewatcher.cpp
+    filewatcher.cpp \
+    settingsdialog.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -51,10 +52,12 @@ HEADERS += \
     gameview.h \
     mousegameview.h \
     serializedgameview.h \
-    filewatcher.h
+    filewatcher.h \
+    settingsdialog.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    settingsdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -11,6 +11,7 @@
 #include "mousegameview.h"
 #include "serializedgameview.h"
 #include "filewatcher.h"
+#include "settingsdialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -68,6 +69,7 @@ private:
     Ui::MainWindow *ui;
     QTimer timer;
     QString fileName;
+    SettingsDialog settingsDialog;
     bool isSaved;
 
     class MyView : public MouseGameView {

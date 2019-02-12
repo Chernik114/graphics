@@ -5,6 +5,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     fileName(""),
+    settingsDialog(this),
     isSaved(true)
 {
     ui->setupUi(this);
@@ -135,7 +136,8 @@ void MainWindow::on_actionRun_triggered(bool checked)
 
 void MainWindow::on_actionSettings_triggered()
 {
-
+    settingsDialog.exec();
+    qDebug() << "DONE";
 }
 
 void MainWindow::on_actionFillState_triggered(bool checked)
