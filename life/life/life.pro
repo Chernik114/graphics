@@ -38,7 +38,8 @@ SOURCES += \
     mousegameview.cpp \
     serializedgameview.cpp \
     filewatcher.cpp \
-    settingsdialog.cpp
+    settingsdialog.cpp \
+    scrolledit.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -53,7 +54,8 @@ HEADERS += \
     mousegameview.h \
     serializedgameview.h \
     filewatcher.h \
-    settingsdialog.h
+    settingsdialog.h \
+    scrolledit.h
 
 FORMS += \
         mainwindow.ui \

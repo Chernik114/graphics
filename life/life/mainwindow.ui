@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="resource.qrc">
     <normaloff>:/pic/pics/Tilda_Icons_12ft_card.svg</normaloff>:/pic/pics/Tilda_Icons_12ft_card.svg</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">

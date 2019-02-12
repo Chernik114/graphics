@@ -10,14 +10,10 @@ TableView::TableView(IGameView& view):
     aliveColor  (*animator.createARGBValue(0xFFFF0000)),
     nDeadColor  (*animator.createARGBValue(0xFFDDDDDD)),
     nAliveColor (*animator.createARGBValue(0xFFDD0000)),
-    cells(view.getCellsX() * view.getCellsY()),
+    cells(0),
     view(view)
 {
-    for(auto i = 0ull; i < cells.size(); i++){
-        cells[i] = animator.createARGBValue(
-                    mathCellColor(i % view.getCellsX(), i / view.getCellsX())
-        );
-    }
+    getVCell(1, 1);
 }
 
 int TableView::getSizeCell()
@@ -37,7 +33,7 @@ ulong TableView::getBorderColor()
 
 ulong TableView::getCellColor(int x, int y)
 {
-    auto& cell = *cells[x + y * view.getCellsX()];
+    auto& cell = getVCell(x, y);
     cell.s(mathCellColor(x, y));
     return cell.g();
 }
@@ -69,6 +65,9 @@ QString TableView::getCellText(int x, int y)
 
 void TableView::setSizeCell(int s)
 {
+    if(s <= 0){
+        return;
+    }
     sizeCell.s(s);
 }
 
@@ -163,4 +162,20 @@ ulong TableView::mathCellColor(int x, int y)
     case IGameView::NEW_ALIVE:
         return nAliveColor.g();
     }
+}
+
+Value<ulong> &TableView::getVCell(int x, int y)
+{
+    auto pos = 0ull + x + y * view.getCellsX();
+    if(pos >= cells.size()){
+        auto newPos = 1ull * view.getCellsX() * view.getCellsY();
+        auto oldPos = cells.size();
+        cells.resize(newPos);
+        for(auto i = oldPos; i < newPos; i++){
+            cells[i] = animator.createARGBValue(
+                        mathCellColor(i % view.getCellsX(), i / view.getCellsX())
+            );
+        }
+    }
+    return *cells[pos];
 }

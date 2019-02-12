@@ -65,11 +65,12 @@ private slots:
 
     void on_actionFileSaveAs_triggered();
 
+    void on_actionClose_triggered();
+
 private:
     Ui::MainWindow *ui;
     QTimer timer;
     QString fileName;
-    SettingsDialog settingsDialog;
     bool isSaved;
 
     class MyView : public MouseGameView {
@@ -90,6 +91,7 @@ private:
     };
 
     MyView view;
+    SettingsDialog settingsDialog;
 
     class Wr : public FileWatcher {
     public:

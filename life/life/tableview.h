@@ -47,6 +47,9 @@ public:
 
 private:
     ulong mathCellColor(int x, int y);
+    Value<ulong>& getVCell(int x, int y);
+
+
     Animator animator;
 
     ulong realTextColor;
