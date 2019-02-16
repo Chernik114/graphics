@@ -19,12 +19,14 @@ public:
     int getCellsY();
     QString getCellText(int x, int y);
     State getCellState(int x, int y);
+    bool isCellAlive(int x, int y);
     void mouseClick(int, int, Mouse){}
     void repaint(){}
 
     void setFieldSize(int x, int y);
     void clear();
     void setCellState(int x, int y, State state);
+    void setCellStates(std::vector<std::pair<int, int>>& coors, State state);
 
     void stepForward();
     void setGameState(GameState state);

@@ -7,13 +7,13 @@ FileDriver::FileDriver(TableView &tv, GameView &gv):
 
 QTextStream &operator<<(QTextStream & s, FileDriver & fd)
 {
-    s << fd.tv.getSizeCell() << '\n';
+    s << fd.gv.getCellsX() << ' ' << fd.gv.getCellsY() << '\n';
     s << "1\n";
+    s << fd.tv.getSizeCell() << '\n';
     std::vector<std::pair<int, int>> cells;
     for(int i = 0; i < fd.gv.getCellsX(); i++){
         for(int j = 0; j < fd.gv.getCellsY(); j++){
-            auto cell = fd.gv.getCellState(i, j);
-            if(cell == IGameView::ALIVE || cell == IGameView::NEW_ALIVE){
+            if(fd.gv.isCellAlive(i, j)){
                 cells.push_back({i, j});
             }
         }
@@ -28,19 +28,26 @@ QTextStream &operator<<(QTextStream & s, FileDriver & fd)
 QTextStream &operator>>(QTextStream &s, FileDriver &fd)
 {
     int x, y;
+    s >> x >> y;
+    s.readLine();
+    fd.gv.setFieldSize(x, y);
     s >> x;
     s.readLine();
     s >> y;
     s.readLine();
-    fd.tv.setSizeCell(x);
+    fd.tv.setSizeCell(y);
     auto size = 0ull;
     s >> size;
     s.readLine();
     fd.gv.clear();
-    for(; size > 0; size--){
+    qDebug() << 1;
+    std::vector<std::pair<int, int>> coors(size);
+    for(auto &coor: coors){
         s >> x >> y;
         s.readLine();
-        fd.gv.setCellState(x, y, IGameView::ALIVE);
+        coor = {x, y};
     }
+    fd.gv.setCellStates(coors, IGameView::ALIVE);
+    qDebug() << 2;
 }
 

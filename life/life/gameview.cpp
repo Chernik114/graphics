@@ -36,6 +36,12 @@ IGameView::State GameView::getCellState(int x, int y)
     return cellState(x, y);
 }
 
+bool GameView::isCellAlive(int x, int y)
+{
+    State state = getCellState(x, y);
+    return state == ALIVE || state == NEW_ALIVE;
+}
+
 void GameView::setFieldSize(int x, int y)
 {
     if(x == xSize && y == ySize){
@@ -85,6 +91,14 @@ void GameView::setCellState(int x, int y, IGameView::State state)
         return;
     }
     cellState(x, y) = state;
+    repaint();
+}
+
+void GameView::setCellStates(std::vector<std::pair<int, int> >& coors, IGameView::State state)
+{
+    for(auto &coor: coors){
+        cellState(coor.first, coor.second) = state;
+    }
     repaint();
 }
 

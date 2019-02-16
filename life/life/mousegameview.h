@@ -24,7 +24,7 @@ private:
 
     int lastX, lastY;
     FillState fillState;
-    State lastState;
+    bool lastState;
     MouseState mouseState;
 
 };

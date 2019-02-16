@@ -14,16 +14,10 @@ void MouseGameView::mouseClick(int x, int y, IGameView::Mouse state)
     if(fillState == NONE){
         return;
     }
-    State cell = getCellState(x, y); // Get last state
-    if(cell == NO_SHOWED){ // Skip invalid
+    if(getCellState(x, y) == NO_SHOWED){ // Skip invalid
         return;
     }
-    if(cell == NEW_ALIVE){ // Normalize
-        cell = ALIVE;
-    }
-    if(cell == NEW_DEAD){
-        cell = DEAD;
-    }
+    bool cell = isCellAlive(x, y);
     if(state & DOWN){ // Save state
         lastX = x;
         lastY = y;
@@ -44,7 +38,7 @@ void MouseGameView::mouseClick(int x, int y, IGameView::Mouse state)
         lastY = y;
     }
     if(fillState == REPLACE){
-        if(cell == ((mouseState == LEFT) ? DEAD : ALIVE)){
+        if(cell == (mouseState != LEFT)){
             setCellState(x, y, (mouseState == LEFT) ? ALIVE : DEAD);
             repaint();
         }
@@ -55,11 +49,7 @@ void MouseGameView::mouseClick(int x, int y, IGameView::Mouse state)
                 return;
             }
         }
-        if(cell == DEAD){
-            setCellState(x, y, ALIVE);
-        } else {
-            setCellState(x, y, DEAD);
-        }
+        setCellState(x, y, cell ? DEAD : ALIVE);
         repaint();
     }
 }

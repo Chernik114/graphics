@@ -5,6 +5,7 @@
 #include <gameview.h>
 
 #include <QTextStream>
+#include <QTime>
 
 class FileDriver
 {

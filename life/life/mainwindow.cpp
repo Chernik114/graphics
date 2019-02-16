@@ -183,6 +183,7 @@ bool MainWindow::on_fileSave(QFile &f)
     QTextStream s(&f);
     FileDriver fd(ui->drawWidget->getTableView(), view.v());
     s << fd;
+    return true;
 }
 
 bool MainWindow::on_fileOpen(QFile &f)
@@ -190,10 +191,12 @@ bool MainWindow::on_fileOpen(QFile &f)
     QTextStream s(&f);
     FileDriver fd(ui->drawWidget->getTableView(), view.v());
     s >> fd;
+    return true;
 }
 
 bool MainWindow::on_fileNew()
 {
     view.v().clear();
+    return true;
 }
 
