@@ -7,6 +7,8 @@
 #include <algorithm>
 #include <cmath>
 
+#include <QDebug>
+
 class PixDrawer
 {
 public:

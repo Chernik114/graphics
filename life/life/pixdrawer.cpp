@@ -25,20 +25,36 @@ void PixDrawer::drawLine(int x1, int y1, int x2, int y2, ulong color)
             std::swap(x1, x2);
             std::swap(y1, y2);
         }
-        double k = 1.0 * (y2 - y1) / (x2 - x1); // straight K
-        for(int i = 0; i <= x2 - x1; i++){ // for X pixels
-            int v = static_cast<int>(round(k * i + y1)); // nearest Y
-            ii(i + x1, v) = color; // draw
+        int dx = x2 - x1, dy = y2 - y1;
+        for(int i = x1; i <= x2; i++){
+            int m = (i - x1) * dy;
+            int err = m % dx;
+            m = (m + y1 * dx) / dx;
+            if(err < 0){
+                err += dx;
+            }
+            if(err >= dx / 2){
+                m++;
+            }
+            ii(i, m) = color;
         }
     } else { // vertical
         if(y1 > y2){ // order for Y
             std::swap(x1, x2);
             std::swap(y1, y2);
         }
-        double k = 1.0 * (x2 - x1) / (y2 - y1); // straight K
-        for(int i = 0; i <= y2 - y1; i++){ // for Y pixels
-            int v = static_cast<int>(round(k * i + x1)); // nearest X
-            ii(v, i + y1) = color; // draw
+        int dx = x2 - x1, dy = y2 - y1;
+        for(int i = y1; i <= y2; i++){
+            int m = (i - y1) * dx;
+            int err = m % dy;
+            m = (m + x1 * dy) / dy;
+            if(err < 0){
+                err += dx;
+            }
+            if(err >= dy / 2){
+                m++;
+            }
+            ii(m, i) = color;
         }
     }
 }
@@ -47,6 +63,9 @@ void PixDrawer::fillSpace(int x, int y, ulong color)
 {
     finishBufP();
     ulong old = ii(x, y);
+    if(old == color){
+        return;
+    }
     std::vector<Span> stack; // # TODO: stack?
     int l, r;
     for(l = x; l >= 0 && ii(l, y) == old; l--); // find left edge

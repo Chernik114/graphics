@@ -40,7 +40,8 @@ SOURCES += \
     settingsdialog.cpp \
     scrolledit.cpp \
     filedriver.cpp \
-    qgameview.cpp
+    qgameview.cpp \
+    settingsdriver.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -57,7 +58,8 @@ HEADERS += \
     settingsdialog.h \
     scrolledit.h \
     filedriver.h \
-    qgameview.h
+    qgameview.h \
+    settingsdriver.h
 
 FORMS += \
         mainwindow.ui \
