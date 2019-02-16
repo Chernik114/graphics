@@ -1,6 +1,7 @@
 #include "filewatcher.h"
 
-FileWatcher::FileWatcher():
+FileWatcher::FileWatcher(QObject *parent):
+    QObject (parent),
     fileName(""),
     w(nullptr),
     saved(true)
@@ -99,8 +100,7 @@ void FileWatcher::goSave()
         QMessageBox::warning(w, "Cannot save file", f.errorString());
         throw Error();
     }
-    QDataStream s(&f);
-    if(!save(s)){
+    if(!save(f)){
         QMessageBox::warning(w, "Cannot save file", "<internal>");
         throw Error();
     }
@@ -114,8 +114,7 @@ void FileWatcher::goLoad()
         QMessageBox::warning(w, "Cannot load file", f.errorString());
         throw Error();
     }
-    QDataStream s(&f);
-    if(!load(s)){
+    if(!load(f)){
         QMessageBox::warning(w, "Cannot load file", "<internal>");
         throw Error();
     }
@@ -129,6 +128,7 @@ void FileWatcher::goCreate()
         throw Error();
     }
     saved = true;
+    fileName = "";
 }
 
 void FileWatcher::diaSave()

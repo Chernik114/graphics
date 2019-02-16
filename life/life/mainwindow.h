@@ -8,10 +8,10 @@
 #include <QFileDialog>
 #include <QMessageBox>
 
-#include "mousegameview.h"
-#include "serializedgameview.h"
+#include "qgameview.h"
 #include "filewatcher.h"
 #include "settingsdialog.h"
+#include "filedriver.h"
 
 namespace Ui {
 class MainWindow;
@@ -67,52 +67,18 @@ private slots:
 
     void on_actionClose_triggered();
 
+    bool on_fileSave(QFile& f);
+    bool on_fileOpen(QFile& f);
+    bool on_fileNew();
 private:
     Ui::MainWindow *ui;
     QTimer timer;
     QString fileName;
     bool isSaved;
 
-    class MyView : public MouseGameView {
-    private:
-        QWidget *w = nullptr;
-
-    public:
-        void setWidget(QWidget &w){
-            this->w = &w;
-        }
-        void repaint(){
-            if(w == nullptr){
-                qDebug() << "NULL VIEW";
-                return;
-            }
-            w->repaint();
-        }
-    };
-
-    MyView view;
+    QGameView view;
     SettingsDialog settingsDialog;
-
-    class Wr : public FileWatcher {
-    public:
-        int a = 0;
-        bool load(QDataStream& s){
-            s >> a;
-            qDebug() << a;
-            return true;
-        }
-        bool save(QDataStream& s){
-            s << a;
-            qDebug() << "saved";
-            return true;
-        }
-        bool create(){
-            a = 0;
-            return true;
-        }
-    };
-
-    Wr fileWatcher;
+    FileWatcher fileWatcher;
 
 protected:
     void resizeEvent(QResizeEvent*);

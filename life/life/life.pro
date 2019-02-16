@@ -36,10 +36,11 @@ SOURCES += \
     igameview.cpp \
     gameview.cpp \
     mousegameview.cpp \
-    serializedgameview.cpp \
     filewatcher.cpp \
     settingsdialog.cpp \
-    scrolledit.cpp
+    scrolledit.cpp \
+    filedriver.cpp \
+    qgameview.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -52,10 +53,11 @@ HEADERS += \
     igameview.h \
     gameview.h \
     mousegameview.h \
-    serializedgameview.h \
     filewatcher.h \
     settingsdialog.h \
-    scrolledit.h
+    scrolledit.h \
+    filedriver.h \
+    qgameview.h
 
 FORMS += \
         mainwindow.ui \

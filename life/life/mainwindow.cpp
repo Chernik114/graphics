@@ -6,13 +6,16 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     fileName(""),
     isSaved(true),
-    settingsDialog(view, this)
+    settingsDialog(view.v(), this)
 {
     ui->setupUi(this);
-    view.setWidget(*ui->drawWidget);
     timer.setInterval(500);
-    QObject::connect(&timer, SIGNAL(timeout()), this, SLOT(on_actionStep_triggered()));
     fileWatcher.setWidget(*this);
+    QObject::connect(&timer, SIGNAL(timeout()), this, SLOT(on_actionStep_triggered()));
+    QObject::connect(&fileWatcher, SIGNAL(save(QFile&)), this, SLOT(on_fileSave(QFile&)));
+    QObject::connect(&fileWatcher, SIGNAL(load(QFile&)), this, SLOT(on_fileOpen(QFile&)));
+    QObject::connect(&fileWatcher, SIGNAL(create()), this, SLOT(on_fileNew()));
+    QObject::connect(&view, SIGNAL(repaint()), ui->drawWidget, SLOT(repaint()));
 }
 
 MainWindow::~MainWindow()
@@ -28,7 +31,7 @@ void MainWindow::resizeEvent(QResizeEvent *)
 
 void MainWindow::showEvent(QShowEvent *)
 {
-    ui->drawWidget->setIView(view);
+    ui->drawWidget->setIView(view.v());
     ui->drawWidget->setSize(QSize(500, 500));
 }
 
@@ -112,12 +115,12 @@ void MainWindow::on_actionShowHideImpact_triggered(bool checked)
 
 void MainWindow::on_actionStep_triggered()
 {
-    view.stepForward();
+    view.v().stepForward();
 }
 
 void MainWindow::on_actionToroidal_triggered(bool checked)
 {
-    view.setGameState(checked ? GameView::TOROIDAL : GameView::NORMAL);
+    view.v().setGameState(checked ? GameView::TOROIDAL : GameView::NORMAL);
 }
 
 void MainWindow::on_actionRun_triggered(bool checked)
@@ -127,7 +130,7 @@ void MainWindow::on_actionRun_triggered(bool checked)
     ui->actionStep->setEnabled(!checked);
     if(checked){
         timer.start();
-        view.setFillState(MouseGameView::NONE);
+        view.v().setFillState(MouseGameView::NONE);
     } else {
         timer.stop();
         on_actionFillState_triggered(ui->actionFillState->isChecked());
@@ -141,29 +144,26 @@ void MainWindow::on_actionSettings_triggered()
 
 void MainWindow::on_actionFillState_triggered(bool checked)
 {
-    view.setFillState(checked ? MouseGameView::XOR : MouseGameView::REPLACE);
+    view.v().setFillState(checked ? MouseGameView::XOR : MouseGameView::REPLACE);
 }
 
 void MainWindow::on_actionClear_triggered()
 {
-    view.clear();
+    view.v().clear();
 }
 
 void MainWindow::on_actionFileNew_triggered()
 {
-    qDebug() << "NEW";
     fileWatcher.newFile();
 }
 
 void MainWindow::on_actionFileOpen_triggered()
 {
-    qDebug() << "OPEN";
     fileWatcher.openFile();
 }
 
 void MainWindow::on_actionFileSave_triggered()
 {
-    qDebug() << "SAVE";
     fileWatcher.saveFile();
 }
 
@@ -177,3 +177,23 @@ void MainWindow::on_actionClose_triggered()
 {
     close();
 }
+
+bool MainWindow::on_fileSave(QFile &f)
+{
+    QTextStream s(&f);
+    FileDriver fd(ui->drawWidget->getTableView(), view.v());
+    s << fd;
+}
+
+bool MainWindow::on_fileOpen(QFile &f)
+{
+    QTextStream s(&f);
+    FileDriver fd(ui->drawWidget->getTableView(), view.v());
+    s >> fd;
+}
+
+bool MainWindow::on_fileNew()
+{
+    view.v().clear();
+}
+

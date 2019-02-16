@@ -4,10 +4,11 @@
 #include <QFileDialog>
 #include <QMessageBox>
 
-class FileWatcher
+class FileWatcher : public QObject
 {
+    Q_OBJECT
 public:
-    FileWatcher();
+    explicit FileWatcher(QObject* parent = nullptr);
 
     void newFile();
     void openFile();
@@ -16,15 +17,14 @@ public:
     void closeFile();
     void changeFile();
 
-    virtual bool save(QDataStream& f) = 0;
-    virtual bool load(QDataStream& f) = 0;
-    virtual bool create() = 0;
-
     QString getFileName();
     bool isSaved();
     void setWidget(QWidget& w);
 
-    virtual ~FileWatcher(){}
+signals:
+    bool save(QFile&);
+    bool load(QFile&);
+    bool create();
 
 private:
     class Error {};
