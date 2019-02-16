@@ -20,9 +20,6 @@ void PixDrawer::drawPaint(int x, int y, ulong color)
 void PixDrawer::drawLine(int x1, int y1, int x2, int y2, ulong color)
 {
     finishBufP();
-    if(x1 == 130 && y1 == 30 && x2 == 120 && y2 == 20){
-        x1 += 0;
-    }
     if(std::abs(y2 - y1) <= std::abs(x2 - x1)){ // horisontal
         if(x1 > x2){ // order for X
             std::swap(x1, x2);

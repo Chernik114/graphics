@@ -2,7 +2,7 @@
 
 RegPolygon::RegPolygon():
     PI(acos(-1.0)),
-    x(0), y(0), side(0), outer(0), inner(0), a(0), eps(1),
+    x(0), y(0), side(0), outer(0), inner(0), a(0), eps(1.5),
     k(3),
     drawer([](double,double,double,double){})
 {}
@@ -80,30 +80,15 @@ void RegPolygon::draw()
 
 bool RegPolygon::isContains(double x, double y)
 {
-    bool res = true;
-    double x1 = 0, y1 = 0, x2, y2, cx, cy;
-    for(int i = 0; i <= k; i++){
-        y2 = PI * 2 * i / k + a;
-        x2 = cos(y2) * outer;
-        y2 = sin(y2) * outer;
-        if(i > 0){
-            cx = (x - this->x) * (
-                        1 - (x1 - x2) * (x1 - x2) / side / side
-             ) - (y - this->y) * (
-                        0 + (x1 - x2) * (y1 - y2) / side / side
-            );
-            cy = (y - this->y) * (
-                        1 - (y1 - y2) * (y1 - y2) / side / side
-             ) - (x - this->x) * (
-                        0 + (x1 - x2) * (y1 - y2) / side / side
-            );
-            res = res &&
-                    (cx * (x1 + x2) / 2 + cy * (y1 + y2) / 2 + eps * eps) / inner / inner < 1;
+    double a, c;
+    for(int i = 0; i < k; i++){
+        a = PI * 2  * (2 * i + 1) / k / 2 + this->a;
+        c = (cos(a) * (x - this->x) + sin(a) * (y - this->y)) / (inner - eps);
+        if(c > 1){
+            return false;
         }
-        x1 = x2;
-        y1 = y2;
     }
-    return res;
+    return true;
 }
 
 double RegPolygon::getX() const
