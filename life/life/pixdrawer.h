@@ -27,11 +27,14 @@ private:
     } Span;
 
     int w, h;
-    QPainter p;
+    QPainter p, *pbuf;
     QImage im;
     ulong* bits;
 
     inline ulong& ii(int x, int y);
+    inline QPainter& startBufP();
+    inline void finishBufP();
+
 };
 
 #endif // PIXDRAWER_H

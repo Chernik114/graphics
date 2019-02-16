@@ -4,6 +4,7 @@ PixDrawer::PixDrawer(QWidget* widget):
     w(widget->width()),
     h(widget->height()),
     p(widget),
+    pbuf(nullptr),
     im(w, h, QImage::Format_ARGB32),
     bits(reinterpret_cast<ulong*>(im.bits()))
 {
@@ -12,11 +13,13 @@ PixDrawer::PixDrawer(QWidget* widget):
 
 void PixDrawer::drawPaint(int x, int y, ulong color)
 {
+    finishBufP();
     this->ii(x, y) = color;
 }
 
 void PixDrawer::drawLine(int x1, int y1, int x2, int y2, ulong color)
 {
+    finishBufP();
     if(x1 == 130 && y1 == 30 && x2 == 120 && y2 == 20){
         x1 += 0;
     }
@@ -45,6 +48,7 @@ void PixDrawer::drawLine(int x1, int y1, int x2, int y2, ulong color)
 
 void PixDrawer::fillSpace(int x, int y, ulong color)
 {
+    finishBufP();
     ulong old = ii(x, y);
     std::vector<Span> stack; // # TODO: stack?
     int l, r;
@@ -101,8 +105,7 @@ void PixDrawer::fillSpace(int x, int y, ulong color)
 
 void PixDrawer::drawText(const QString& text, int x, int y, int s, ulong color)
 {
-    QPainter p;
-    p.begin(&im);
+    QPainter &p = startBufP();
     p.setPen(QColor(
                  (color >> 16) & 0xFF,
                  (color >>  8) & 0xFF,
@@ -111,16 +114,17 @@ void PixDrawer::drawText(const QString& text, int x, int y, int s, ulong color)
     ));
     p.setFont(QFont("Times", s, QFont::Bold));
     p.drawText(x - text.size() * s + 2, y - s, text.size() * 2 * s, 2 * s, Qt::AlignCenter | Qt::AlignHCenter, text);
-    p.end();
 }
 
 void PixDrawer::clear()
 {
+    finishBufP();
     std::fill(bits, bits + w * h, 0);
 }
 
 PixDrawer::~PixDrawer()
 {
+    finishBufP();
     p.drawImage(0, 0, im);
     p.end();
 }
@@ -128,4 +132,24 @@ PixDrawer::~PixDrawer()
 ulong &PixDrawer::ii(int x, int y)
 {
     return bits[x + y * w];
+}
+
+QPainter &PixDrawer::startBufP()
+{
+    if(pbuf == nullptr){
+        pbuf = new QPainter();
+        pbuf->begin(&im);
+    }
+    return *pbuf;
+}
+
+void PixDrawer::finishBufP()
+{
+    if(pbuf == nullptr){
+        return;
+    }
+    pbuf->end();
+    delete pbuf;
+    pbuf = nullptr;
+    return;
 }
