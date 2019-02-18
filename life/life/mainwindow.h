@@ -12,6 +12,7 @@
 #include "filewatcher.h"
 #include "settingsdialog.h"
 #include "filedriver.h"
+#include "about.h"
 
 namespace Ui {
 class MainWindow;
@@ -73,6 +74,7 @@ private:
     QGameView view;
     SettingsDialog settingsDialog;
     FileWatcher fileWatcher;
+    About about;
 
     void setTitle(QString fileName);
 

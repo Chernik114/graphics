@@ -41,7 +41,8 @@ SOURCES += \
     scrolledit.cpp \
     filedriver.cpp \
     qgameview.cpp \
-    settingsdriver.cpp
+    settingsdriver.cpp \
+    about.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -59,11 +60,13 @@ HEADERS += \
     scrolledit.h \
     filedriver.h \
     qgameview.h \
-    settingsdriver.h
+    settingsdriver.h \
+    about.h
 
 FORMS += \
         mainwindow.ui \
-    settingsdialog.ui
+    settingsdialog.ui \
+    about.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

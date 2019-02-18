@@ -6,7 +6,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     fileName(""),
     isSaved(true),
-    settingsDialog(this)
+    settingsDialog(this),
+    about(this)
 {
     ui->setupUi(this);
     timer.setInterval(500);
@@ -14,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QObject::connect(&timer, SIGNAL(timeout()), this, SLOT(on_actionStep_triggered()));
     QObject::connect(&view, SIGNAL(repaint()), ui->drawWidget, SLOT(repaint()));
+    QObject::connect(ui->actionAbout, SIGNAL(triggered()), &about, SLOT(exec()));
 
     QObject::connect(ui->actionFileNew, SIGNAL(triggered()), &fileWatcher, SLOT(newFile()));
     QObject::connect(ui->actionFileOpen, SIGNAL(triggered()), &fileWatcher, SLOT(openFile()));
