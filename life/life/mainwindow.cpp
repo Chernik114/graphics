@@ -41,7 +41,7 @@ void MainWindow::resizeEvent(QResizeEvent *)
 void MainWindow::showEvent(QShowEvent *)
 {
     ui->drawWidget->setIView(view.v());
-    fileWatcher.newFile();
+    setTitle("<unknown>");
 }
 
 void MainWindow::closeEvent(QCloseEvent *e)

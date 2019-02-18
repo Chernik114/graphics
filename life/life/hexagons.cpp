@@ -31,6 +31,9 @@ void Hexagons::draw(PixDrawer &drw)
     if(view.getSizeCell() >= 7 && view.getTextColor() != 0){
         for(int x = 0; x < view.getCellsX(); x++){
             for(int y = 0; y < view.getCellsY(); y++){
+                if(!view.isCellShowed(x, y)){
+                    continue;
+                }
                 drw.drawText(
                             view.getCellText(x, y),
                             p.getInner() * ((y % 2) + 2 * x + 1),
