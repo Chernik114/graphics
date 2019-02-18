@@ -73,7 +73,7 @@ int Hexagons::getSizeX()
     p
             .setAmountSides(6)
             .setOuterRadius(view.getSizeCell());
-    return p.getInner() * (1 + 2 * view.getCellsX()) + 5;
+    return p.getInner() * (1 + 2 * view.getCellsX());
 }
 
 int Hexagons::getSizeY()
@@ -82,7 +82,7 @@ int Hexagons::getSizeY()
     p
             .setAmountSides(6)
             .setOuterRadius(view.getSizeCell());
-    return (p.getOuter() + p.getSide() / 2) * view.getCellsY() + p.getOuter() - p.getSide() / 2 + 5;
+    return (p.getOuter() + p.getSide() / 2) * view.getCellsY() + p.getOuter() - p.getSide() / 2;
 }
 
 Hexagons::LineDrawer::LineDrawer(PixDrawer &drw, ulong color):
