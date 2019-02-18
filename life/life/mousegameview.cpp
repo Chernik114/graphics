@@ -8,6 +8,9 @@ MouseGameView::MouseGameView():
 
 void MouseGameView::mouseClick(int x, int y, IGameView::Mouse state)
 {
+    if(x < 0 || y < 0){
+        return;
+    }
     if(state & UP){ // No capture up
         return;
     }
@@ -40,7 +43,6 @@ void MouseGameView::mouseClick(int x, int y, IGameView::Mouse state)
     if(fillState == REPLACE){
         if(cell == (mouseState != LEFT)){
             setCellState(x, y, (mouseState == LEFT) ? ALIVE : DEAD);
-            repaint();
         }
     }
     if(fillState == XOR){
@@ -50,7 +52,6 @@ void MouseGameView::mouseClick(int x, int y, IGameView::Mouse state)
             }
         }
         setCellState(x, y, cell ? DEAD : ALIVE);
-        repaint();
     }
 }
 

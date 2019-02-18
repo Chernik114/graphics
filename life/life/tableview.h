@@ -43,6 +43,9 @@ public:
     void setIsShowText(bool state);
     ulong getRealTextColor();
 
+    void setMsAnimation(int t);
+    int getMsAnimation();
+
     void mouseClick(int x, int y, IGameView::Mouse state);
 
 private:

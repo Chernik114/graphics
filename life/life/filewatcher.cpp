@@ -47,18 +47,20 @@ void FileWatcher::saveNewFile()
     }
 }
 
-void FileWatcher::closeFile()
+bool FileWatcher::closeFile()
 {
     try {
         isSaveFile();
+        return true;
     } catch(Error&){
-
+        return false;
     }
 }
 
 void FileWatcher::changeFile()
 {
     saved = false;
+    change();
 }
 
 QString FileWatcher::getFileName()
@@ -81,7 +83,7 @@ void FileWatcher::isSaveFile()
     if(saved){
         return;
     }
-    auto but = QMessageBox::warning(w, "Save file?", fileName, QMessageBox::Ok | QMessageBox::Cancel | QMessageBox::No);
+    auto but = QMessageBox::warning(w, "Save file?", fileName, QMessageBox::Yes | QMessageBox::Cancel | QMessageBox::No);
     if(but == QMessageBox::Cancel){
         throw Error();
     }

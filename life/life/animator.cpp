@@ -47,6 +47,7 @@ void Animator::timerEvent(QTimerEvent *)
 {
     if(values.size() == 0){
         this->stop();
+        return;
     }
     std::vector<TimValue*> ge;
     for(auto i = 0ull; i < values.size(); i++){

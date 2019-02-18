@@ -10,21 +10,23 @@ class FileWatcher : public QObject
 public:
     explicit FileWatcher(QObject* parent = nullptr);
 
+    QString getFileName();
+    bool isSaved();
+    void setWidget(QWidget& w);
+
+public slots:
     void newFile();
     void openFile();
     void saveFile();
     void saveNewFile();
-    void closeFile();
+    bool closeFile();
     void changeFile();
-
-    QString getFileName();
-    bool isSaved();
-    void setWidget(QWidget& w);
 
 signals:
     bool save(QFile&);
     bool load(QFile&);
     bool create();
+    void change();
 
 private:
     class Error {};

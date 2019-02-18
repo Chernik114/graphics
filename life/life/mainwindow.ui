@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Life Game - *</string>
   </property>
   <property name="windowIcon">
    <iconset resource="resource.qrc">
@@ -322,7 +322,7 @@
     <string>Replace/XOR</string>
    </property>
    <property name="toolTip">
-    <string>Replace on alive/Switch</string>
+    <string>Replace/XOR</string>
    </property>
    <property name="statusTip">
     <string>Set fill mode (replace lets fill cells by alive state, XOR lets you switch this state)</string>

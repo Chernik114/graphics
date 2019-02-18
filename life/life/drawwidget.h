@@ -22,6 +22,7 @@ public:
     TableView& getTableView();
 
 signals:
+    void click();
 
 public slots:
 

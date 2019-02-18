@@ -27,7 +27,7 @@ QTextStream &operator<<(QTextStream & s, FileDriver & fd)
 
 QTextStream &operator>>(QTextStream &s, FileDriver &fd)
 {
-    int x, y;
+    int x = 0, y = 0;
     s >> x >> y;
     s.readLine();
     fd.gv.setFieldSize(x, y);
@@ -40,7 +40,6 @@ QTextStream &operator>>(QTextStream &s, FileDriver &fd)
     s >> size;
     s.readLine();
     fd.gv.clear();
-    qDebug() << 1;
     std::vector<std::pair<int, int>> coors(size);
     for(auto &coor: coors){
         s >> x >> y;
@@ -48,6 +47,5 @@ QTextStream &operator>>(QTextStream &s, FileDriver &fd)
         coor = {x, y};
     }
     fd.gv.setCellStates(coors, IGameView::ALIVE);
-    qDebug() << 2;
 }
 

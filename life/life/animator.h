@@ -52,6 +52,12 @@ public:
         }
     protected:
         bool onTimer() { // On timer event
+            if(msLeft <= 0){
+                msLeft = 0;
+                cur = aim;
+                isAnimNow = false;
+                return true;
+            }
             if(cur < aim){
                 cur += (aim - cur) * msAnim / msLeft;
             } else {
@@ -68,7 +74,7 @@ public:
         }
         Animator& animator; // Loopback
         bool isAnimNow; // We animated now
-        int msLeft, msFull, msAnim;
+        int msLeft, &msFull, msAnim;
         T cur, aim;
     private:
         Value(Animator& animator, T v):

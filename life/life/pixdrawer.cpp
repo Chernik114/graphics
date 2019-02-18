@@ -21,6 +21,10 @@ void PixDrawer::drawLine(int x1, int y1, int x2, int y2, ulong color)
 {
     finishBufP();
     if(std::abs(y2 - y1) <= std::abs(x2 - x1)){ // horisontal
+        if(x1 == x2){
+            ii(x1, y1) = color;
+            return;
+        }
         if(x1 > x2){ // order for X
             std::swap(x1, x2);
             std::swap(y1, y2);

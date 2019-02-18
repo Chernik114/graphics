@@ -57,19 +57,13 @@ private slots:
 
     void on_actionClear_triggered();
 
-    void on_actionFileNew_triggered();
-
-    void on_actionFileOpen_triggered();
-
-    void on_actionFileSave_triggered();
-
-    void on_actionFileSaveAs_triggered();
-
     void on_actionClose_triggered();
 
     bool on_fileSave(QFile& f);
     bool on_fileOpen(QFile& f);
     bool on_fileNew();
+
+    void on_Change();
 private:
     Ui::MainWindow *ui;
     QTimer timer;
@@ -80,9 +74,12 @@ private:
     SettingsDialog settingsDialog;
     FileWatcher fileWatcher;
 
+    void setTitle(QString fileName);
+
 protected:
     void resizeEvent(QResizeEvent*);
     void showEvent(QShowEvent*);
+    void closeEvent(QCloseEvent* e);
 
 };
 

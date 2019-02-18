@@ -2,7 +2,7 @@
 
 ScrollEdit::ScrollEdit(QWidget *parent):
     QLineEdit (parent),
-    min(0), max(1), pos(0.5),
+    min(0), max(1), pos(0.5), koef(0.01),
     bgColor(0xFFFFFFFF), progressColor(0xFFFFBBBB),
     prec(3),
     isMouse(false)
@@ -90,6 +90,29 @@ double ScrollEdit::getValue()
     return pos;
 }
 
+void ScrollEdit::setKoef(double koef)
+{
+    this->koef = koef;
+    retext();
+}
+
+double ScrollEdit::getKoef()
+{
+    return koef;
+}
+
+void ScrollEdit::setRange(double min, double max)
+{
+    if(min > max){
+        double a = min;
+        min = max;
+        max = a;
+    }
+    this->min = min;
+    this->max = max;
+    retext();
+}
+
 void ScrollEdit::paintEvent(QPaintEvent *e)
 {
     QPainter p(this);
@@ -117,6 +140,9 @@ void ScrollEdit::keyPressEvent(QKeyEvent *e){
     bool ok;
     double val = newTxt.toDouble(&ok);
     if(!ok || val < min || val > max){
+        if(val < min){
+            return;
+        }
         setText(oldTxt);
         return;
     }
@@ -136,7 +162,7 @@ void ScrollEdit::mousePressEvent(QMouseEvent *e)
 void ScrollEdit::mouseMoveEvent(QMouseEvent *e)
 {
     if(isMouse){
-        double val = (e->x() - lastX) * 0.01 * (max - min);
+        double val = (e->x() - lastX) * koef * (max - min);
         val += pos;
         if(val < min){
             val = min;

@@ -144,6 +144,16 @@ ulong TableView::getRealTextColor()
     return realTextColor;
 }
 
+void TableView::setMsAnimation(int t)
+{
+    animator.setMsAnimation(t);
+}
+
+int TableView::getMsAnimation()
+{
+    return animator.getMsAnimation();
+}
+
 void TableView::mouseClick(int x, int y, IGameView::Mouse state)
 {
     view.mouseClick(x, y, state);

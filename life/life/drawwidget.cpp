@@ -36,7 +36,12 @@ void DrawWidget::paintEvent(QPaintEvent *)
         setSize(QSize(sx, sy));
     }
     PixDrawer drw(this);
+    QTime t = QTime::currentTime();
     hs->draw(drw);
+    int ms = t.msecsTo(QTime::currentTime());
+    if(ms >= 50){
+        qDebug() << "Paint at (ms)" << ms;
+    }
 }
 
 void DrawWidget::mousePressEvent(QMouseEvent *e)
@@ -52,6 +57,7 @@ void DrawWidget::mouseMoveEvent(QMouseEvent *e)
 void DrawWidget::mouseReleaseEvent(QMouseEvent *e)
 {
     hs->mouseClick(e->x(), e->y(), parseEvent(e) | IGameView::UP);
+    click();
 }
 
 IGameView::Mouse DrawWidget::parseEvent(QMouseEvent *e)

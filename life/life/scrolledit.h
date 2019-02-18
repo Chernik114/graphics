@@ -24,6 +24,9 @@ public:
     void setPrec(int prec);
     int getPrec();
     double getValue();
+    void setKoef(double koef);
+    double getKoef();
+    void setRange(double min, double max);
 
 signals:
     void changeValue(double);
@@ -38,7 +41,7 @@ protected:
 private:
     inline void retext();
 
-    double min, max, pos; // Value
+    double min, max, pos, koef; // Value
     QColor bgColor, progressColor;
     int lastX, lastY;
     bool isMouse;

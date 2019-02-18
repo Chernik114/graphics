@@ -6,16 +6,25 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     fileName(""),
     isSaved(true),
-    settingsDialog(view.v(), this)
+    settingsDialog(this)
 {
     ui->setupUi(this);
     timer.setInterval(500);
     fileWatcher.setWidget(*this);
+
     QObject::connect(&timer, SIGNAL(timeout()), this, SLOT(on_actionStep_triggered()));
+    QObject::connect(&view, SIGNAL(repaint()), ui->drawWidget, SLOT(repaint()));
+
+    QObject::connect(ui->actionFileNew, SIGNAL(triggered()), &fileWatcher, SLOT(newFile()));
+    QObject::connect(ui->actionFileOpen, SIGNAL(triggered()), &fileWatcher, SLOT(openFile()));
+    QObject::connect(ui->actionFileSave, SIGNAL(triggered()), &fileWatcher, SLOT(saveFile()));
+    QObject::connect(ui->actionFileSaveAs, SIGNAL(triggered()), &fileWatcher, SLOT(saveNewFile()));
+    QObject::connect(ui->drawWidget, SIGNAL(click()), &fileWatcher, SLOT(changeFile()));
+
     QObject::connect(&fileWatcher, SIGNAL(save(QFile&)), this, SLOT(on_fileSave(QFile&)));
     QObject::connect(&fileWatcher, SIGNAL(load(QFile&)), this, SLOT(on_fileOpen(QFile&)));
     QObject::connect(&fileWatcher, SIGNAL(create()), this, SLOT(on_fileNew()));
-    QObject::connect(&view, SIGNAL(repaint()), ui->drawWidget, SLOT(repaint()));
+    QObject::connect(&fileWatcher, SIGNAL(change()), this, SLOT(on_Change()));
 }
 
 MainWindow::~MainWindow()
@@ -32,7 +41,12 @@ void MainWindow::resizeEvent(QResizeEvent *)
 void MainWindow::showEvent(QShowEvent *)
 {
     ui->drawWidget->setIView(view.v());
-    ui->drawWidget->setSize(QSize(500, 500));
+    fileWatcher.newFile();
+}
+
+void MainWindow::closeEvent(QCloseEvent *e)
+{
+    e->setAccepted(fileWatcher.closeFile());
 }
 
 void MainWindow::on_actionColorBorder_triggered()
@@ -98,13 +112,15 @@ void MainWindow::on_actionColorCellNDead_triggered()
 void MainWindow::on_actionCellSizeUp_triggered()
 {
     TableView &vv = ui->drawWidget->getTableView();
-    vv.setSizeCell(vv.getSizeCell() + 5);
+    vv.setSizeCell(vv.getSizeCell() <= 95 ? vv.getSizeCell() + 5 : 100);
+    fileWatcher.changeFile();
 }
 
 void MainWindow::on_actionCellSizeDown_triggered()
 {
     TableView &vv = ui->drawWidget->getTableView();
-    vv.setSizeCell(vv.getSizeCell() - 5);
+    vv.setSizeCell(vv.getSizeCell() >= 11 ? vv.getSizeCell() - 5 : 6);
+    fileWatcher.changeFile();
 }
 
 void MainWindow::on_actionShowHideImpact_triggered(bool checked)
@@ -116,6 +132,7 @@ void MainWindow::on_actionShowHideImpact_triggered(bool checked)
 void MainWindow::on_actionStep_triggered()
 {
     view.v().stepForward();
+    fileWatcher.changeFile();
 }
 
 void MainWindow::on_actionToroidal_triggered(bool checked)
@@ -139,7 +156,10 @@ void MainWindow::on_actionRun_triggered(bool checked)
 
 void MainWindow::on_actionSettings_triggered()
 {
+    SettingsDriver drv(view.v(), ui->drawWidget->getTableView(), timer);
+    settingsDialog.setDrv(drv);
     settingsDialog.exec();
+    fileWatcher.changeFile();
 }
 
 void MainWindow::on_actionFillState_triggered(bool checked)
@@ -150,27 +170,7 @@ void MainWindow::on_actionFillState_triggered(bool checked)
 void MainWindow::on_actionClear_triggered()
 {
     view.v().clear();
-}
-
-void MainWindow::on_actionFileNew_triggered()
-{
-    fileWatcher.newFile();
-}
-
-void MainWindow::on_actionFileOpen_triggered()
-{
-    fileWatcher.openFile();
-}
-
-void MainWindow::on_actionFileSave_triggered()
-{
-    fileWatcher.saveFile();
-}
-
-void MainWindow::on_actionFileSaveAs_triggered()
-{
-    qDebug() << "SAVE AS";
-    fileWatcher.saveNewFile();
+    fileWatcher.changeFile();
 }
 
 void MainWindow::on_actionClose_triggered()
@@ -183,6 +183,7 @@ bool MainWindow::on_fileSave(QFile &f)
     QTextStream s(&f);
     FileDriver fd(ui->drawWidget->getTableView(), view.v());
     s << fd;
+    setTitle(f.fileName());
     return true;
 }
 
@@ -191,12 +192,29 @@ bool MainWindow::on_fileOpen(QFile &f)
     QTextStream s(&f);
     FileDriver fd(ui->drawWidget->getTableView(), view.v());
     s >> fd;
+    setTitle(f.fileName());
     return true;
 }
 
 bool MainWindow::on_fileNew()
 {
     view.v().clear();
+    setTitle("<unknown>");
+    SettingsDriver drv(view.v(), ui->drawWidget->getTableView(), timer);
+    settingsDialog.setDrv(drv);
+    settingsDialog.exec();
     return true;
+}
+
+void MainWindow::on_Change()
+{
+    if(*(windowTitle().end()-1) != '*'){
+        setWindowTitle(windowTitle() + " *");
+    }
+}
+
+void MainWindow::setTitle(QString fileName)
+{
+    setWindowTitle("Game Life > " + fileName);
 }
 

@@ -4,7 +4,7 @@
 #include <QDialog>
 #include <QPainter>
 
-#include "gameview.h"
+#include "settingsdriver.h"
 
 namespace Ui {
 class SettingsDialog;
@@ -15,19 +15,21 @@ class SettingsDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit SettingsDialog(GameView &view, QWidget *parent = nullptr);
+    explicit SettingsDialog(QWidget *parent = nullptr);
     ~SettingsDialog();
+    void setDrv(SettingsDriver &drv);
 
 protected:
     void showEvent(QShowEvent*);
 
 private slots:
-
     void on_buttonOK_clicked();
+
+    void on_buttonCancel_clicked();
 
 private:
     Ui::SettingsDialog *ui;
-    GameView &view;
+    SettingsDriver *drv;
 };
 
 #endif // SETTINGSDIALOG_H
