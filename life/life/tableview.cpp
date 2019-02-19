@@ -2,8 +2,8 @@
 
 TableView::TableView(IGameView& view):
     animator([&view](){view.repaint();}),
-    sizeCell(*animator.createValue(20)),
     realTextColor(0xFFFF00FF),
+    sizeCell(*animator.createValue(20)),
     borderColor (*animator.createARGBValue(0xFF000000)),
     textColor   (*animator.createARGBValue(0x00000000)),
     deadColor   (*animator.createARGBValue(0xFFFFFFFF)),
@@ -172,6 +172,7 @@ ulong TableView::mathCellColor(int x, int y)
     case IGameView::NEW_ALIVE:
         return nAliveColor.g();
     }
+    return 0;
 }
 
 Value<ulong> &TableView::getVCell(int x, int y)

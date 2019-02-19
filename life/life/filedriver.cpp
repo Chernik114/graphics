@@ -22,7 +22,7 @@ QTextStream &operator<<(QTextStream & s, FileDriver & fd)
     for(auto &cell: cells){
         s << cell.first << ' ' << cell.second << '\n';
     }
-
+    return s;
 }
 
 QTextStream &operator>>(QTextStream &s, FileDriver &fd)
@@ -47,5 +47,6 @@ QTextStream &operator>>(QTextStream &s, FileDriver &fd)
         coor = {x, y};
     }
     fd.gv.setCellStates(coors, IGameView::ALIVE);
+    return s;
 }
 

@@ -4,8 +4,8 @@ ScrollEdit::ScrollEdit(QWidget *parent):
     QLineEdit (parent),
     min(0), max(1), pos(0.5), koef(0.01),
     bgColor(0xFFFFFFFF), progressColor(0xFFFFBBBB),
-    prec(3),
-    isMouse(false)
+    isMouse(false),
+    prec(3)
 {
     setStyleSheet("*{background-color: rgba(0,0,0,0)}");
     retext();
