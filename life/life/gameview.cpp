@@ -172,6 +172,49 @@ void GameView::setGameState(GameView::GameState state)
     repaint();
 }
 
+double GameView::getParam(GameView::ParamType p)
+{
+    switch(p){
+    case FST_IMPACT:
+        return fstImpact;
+    case SND_IMPACT:
+        return sndImpact;
+    case LIVE_BEGIN:
+        return liveBegin;
+    case LIVE_END:
+        return liveEnd;
+    case BIRTH_BEGIN:
+        return birthBegin;
+    case BIRTH_END:
+        return birthEnd;
+    }
+}
+
+void GameView::setParam(GameView::ParamType p, double v)
+{
+    switch(p){
+    case FST_IMPACT:
+        fstImpact = v;
+        break;
+    case SND_IMPACT:
+        sndImpact = v;
+        break;
+    case LIVE_BEGIN:
+        liveBegin = v;
+        break;
+    case LIVE_END:
+        liveEnd = v;
+        break;
+    case BIRTH_BEGIN:
+        birthBegin = v;
+        break;
+    case BIRTH_END:
+        birthEnd = v;
+        break;
+    }
+    repaint();
+}
+
 double GameView::roundImpact(int x, int y)
 {
     State s = roundState(x, y);

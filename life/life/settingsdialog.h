@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QPainter>
+#include <QMessageBox>
 
 #include "settingsdriver.h"
 

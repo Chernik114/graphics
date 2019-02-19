@@ -13,6 +13,12 @@ public:
         TOROIDAL
     };
 
+    enum ParamType {
+        FST_IMPACT, SND_IMPACT,
+        LIVE_BEGIN, LIVE_END,
+        BIRTH_BEGIN, BIRTH_END
+    };
+
     GameView();
 
     int getCellsX();
@@ -30,6 +36,9 @@ public:
 
     void stepForward();
     void setGameState(GameState state);
+
+    double getParam(ParamType p);
+    void setParam(ParamType p, double v);
 
 private:
     inline double roundImpact(int x, int y);
