@@ -63,7 +63,7 @@ void SettingsDialog::on_buttonOK_clicked()
             birthBegin = ui->valBirthBegin->getValue(),
             birthEnd   = ui->valBirthEnd->getValue();
     if(!(liveBegin <= birthBegin && birthBegin <= birthEnd && birthEnd <= liveEnd)){
-        QMessageBox::warning(this, "Wrond params", "Must be liveBegin <= birthBegin <= birthEnd <= liveEnd");
+        QMessageBox::warning(this, "Wrong game parameters", "Must be liveBegin <= birthBegin <= birthEnd <= liveEnd");
         return;
     }
     drv->gv.setFieldSize(round(ui->tableSizeX->getValue()), round(ui->tableSizeY->getValue()));

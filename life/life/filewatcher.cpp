@@ -83,7 +83,7 @@ void FileWatcher::isSaveFile()
     if(saved){
         return;
     }
-    auto but = QMessageBox::warning(w, "Save file?", fileName, QMessageBox::Yes | QMessageBox::Cancel | QMessageBox::No);
+    auto but = QMessageBox::warning(w, "Save file?", fileName == "" ? "<unknown>" : fileName, QMessageBox::Yes | QMessageBox::Cancel | QMessageBox::No);
     if(but == QMessageBox::Cancel){
         throw Error();
     }
