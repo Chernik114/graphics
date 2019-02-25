@@ -30,17 +30,18 @@ void PixDrawer::drawLine(int x1, int y1, int x2, int y2, ulong color)
             std::swap(y1, y2);
         }
         int dx = x2 - x1, dy = y2 - y1;
+        int m = 0, n, k = y1 * dx;
         for(int i = x1; i <= x2; i++){
-            int m = (i - x1) * dy;
             int err = m % dx;
-            m = (m + y1 * dx) / dx;
+            n = (m + k) / dx;
             if(err < 0){
                 err += dx;
             }
             if(err >= dx / 2){
-                m++;
+                n++;
             }
-            ii(i, m) = color;
+            ii(i, n) = color;
+            m += dy;
         }
     } else { // vertical
         if(y1 > y2){ // order for Y
@@ -48,17 +49,18 @@ void PixDrawer::drawLine(int x1, int y1, int x2, int y2, ulong color)
             std::swap(y1, y2);
         }
         int dx = x2 - x1, dy = y2 - y1;
+        int m = 0, n, k = x1 * dy;
         for(int i = y1; i <= y2; i++){
-            int m = (i - y1) * dx;
             int err = m % dy;
-            m = (m + x1 * dy) / dy;
+            n = (m + k) / dy;
             if(err < 0){
-                err += dx;
+                err += dy;
             }
             if(err >= dy / 2){
-                m++;
+                n++;
             }
-            ii(m, i) = color;
+            ii(n, i) = color;
+            m += dx;
         }
     }
 }
