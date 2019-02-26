@@ -20,7 +20,9 @@ void PixDrawer::drawPaint(int x, int y, ulong color)
 void PixDrawer::drawLine(int x1, int y1, int x2, int y2, ulong color)
 {
     finishBufP();
-    if(std::abs(y2 - y1) <= std::abs(x2 - x1)){ // horisontal
+    int dx = std::abs(x2 - x1);
+    int dy = std::abs(y2 - y1);
+    if(dy <= dx){ // horisontal
         if(x1 == x2){
             ii(x1, y1) = color;
             return;
@@ -29,38 +31,43 @@ void PixDrawer::drawLine(int x1, int y1, int x2, int y2, ulong color)
             std::swap(x1, x2);
             std::swap(y1, y2);
         }
-        int dx = x2 - x1, dy = y2 - y1;
-        int m = 0, n, k = y1 * dx;
-        for(int i = x1; i <= x2; i++){
-            int err = m % dx;
-            n = (m + k) / dx;
-            if(err < 0){
-                err += dx;
+        int err = 0, y = y1, sy = y2 - y1;
+        if(sy < 0){
+            sy = -w;
+        }
+        if(sy > 0){
+            sy = w;
+        }
+        ulong *px = &ii(x1, y);
+        for(int x = x1; x <= x2; x++){
+            *px++ = color;
+            err += dy;
+            if(err + err >= dx){
+                px += sy;
+                err -= dx;
             }
-            if(err >= dx / 2){
-                n++;
-            }
-            ii(i, n) = color;
-            m += dy;
         }
     } else { // vertical
         if(y1 > y2){ // order for Y
             std::swap(x1, x2);
             std::swap(y1, y2);
         }
-        int dx = x2 - x1, dy = y2 - y1;
-        int m = 0, n, k = x1 * dy;
-        for(int i = y1; i <= y2; i++){
-            int err = m % dy;
-            n = (m + k) / dy;
-            if(err < 0){
-                err += dy;
+        int err = 0, x = x1, sx = x2 - x1;
+        if(sx < 0){
+            sx = -1;
+        }
+        if(sx > 0){
+            sx = 1;
+        }
+        ulong *px = &ii(x, y1);
+        for(int y = y1; y <= y2; y++){
+            *px = color;
+            px += w;
+            err += dx;
+            if(err + err >= dy){
+                px += sx;
+                err -= dy;
             }
-            if(err >= dy / 2){
-                n++;
-            }
-            ii(n, i) = color;
-            m += dx;
         }
     }
 }
@@ -81,44 +88,52 @@ void PixDrawer::fillSpace(int x, int y, ulong color)
     while(stack.size() > 0){
         Span cur = stack.back(); // pop
         stack.pop_back();
+        ulong *pm = &ii(cur.l, cur.y);
+        ulong *pu = pm - w;
+        ulong *pd = pm + w;
         for(int i = cur.l; i <= cur.r; i++){ // run
-            ii(i, cur.y) = color; // fill
+            *pm = color; // fill
             if(cur.y > 0){ // upper line exist
-                if(l < 0 && ii(i, cur.y - 1) == old){ // start upper span
+                if(l < 0 && *pu == old){ // start upper span
                     l = i; // save pos
                     if(i == cur.l){ // expand left edge
-                        for(; l >= 0 && ii(l, cur.y - 1) == old; l--);
+                        ulong *pb = pu;
+                        for(; l >= 0 && *pb == old; l--, pb--);
                         l++;
                     }
                 }
-                if(l >= 0 && ii(i, cur.y - 1) != old){ // stop upper span
+                if(l >= 0 && *pu != old){ // stop upper span
                     stack.push_back({l, i - 1, cur.y - 1}); // push
                     l = -1; // reset pos
                 }
             }
             if(cur.y < h - 1){ // lower line exist
-                if(r < 0 && ii(i, cur.y + 1) == old){ // start lower span
+                if(r < 0 && *pd == old){ // start lower span
                     r = i; // save pos
                     if(i == cur.l){ // expand left edge
-                        for(; r >= 0 && ii(r, cur.y + 1) == old; r--);
+                        ulong *pb = pd;
+                        for(; r >= 0 && *pb == old; r--, pb--);
                         r++;
                     }
                 }
-                if(r >= 0 && ii(i, cur.y + 1) != old){ // stop lower span
+                if(r >= 0 && *pd != old){ // stop lower span
                     stack.push_back({r, i - 1, cur.y + 1}); // push
                     r = -1; // reset pos
                 }
             }
+            pm++; pu++; pd++;
         }
         if(l >= 0){ // unclosed upper span
             int i;
-            for(i = cur.r + 1; i < w && ii(i, cur.y - 1) == old; i++); // expand right edge
+            ulong *pb = &ii(cur.r + 1, cur.y - 1);
+            for(i = cur.r + 1; i < w && *pb == old; i++, pb++); // expand right edge
             stack.push_back({l, i - 1, cur.y - 1}); // push
             l = -1;
         }
         if(r >= 0){ // unclosed lower span
             int i;
-            for(i = cur.r + 1; i < w && ii(i, cur.y + 1) == old; i++); // expand right edge
+            ulong *pb = &ii(cur.r + 1, cur.y + 1);
+            for(i = cur.r + 1; i < w && *pb == old; i++, pb++); // expand right edge
             stack.push_back({r, i - 1, cur.y + 1}); // push
             r = -1;
         }

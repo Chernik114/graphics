@@ -39,7 +39,7 @@ void DrawWidget::paintEvent(QPaintEvent *)
     QTime t = QTime::currentTime();
     hs->draw(drw);
     int ms = t.msecsTo(QTime::currentTime());
-    if(ms >= 50){
+    if(ms >= 20){
         qDebug() << "Paint at (ms)" << ms;
     }
 }
